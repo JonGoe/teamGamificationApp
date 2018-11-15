@@ -1,0 +1,25 @@
+<div nbgDropdown class="btn-group">
+    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-controls="filter-dropdown" aria-expanded="false">
+        <fa-icon [icon]="faCalendarAlt"></fa-icon>
+    </button>
+    <div ngbDropdownMenu id="filter-dropdown" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <div class="custom-controls-stacked">
+            <div class="custom-control custom-radio custom-control-inline">
+                 <input type="radio" id="radio-splitscreen" name="radio-group-screen" class="custom-control-input" [value]="timeFilter.total" (click)="changeTimeFilter(timeFilter.total)" [checked]="activeFilter === timeFilter.total" />
+                <label class="custom-control-label" for="radio-splitscreen" data-toggle="tooltip" data-placement="bottom" title="Insgesamt">Ingsesamt</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="radio-splitscreen" name="radio-group-screen" class="custom-control-input" [value]="timeFilter.today" (click)="changeTimeFilter(timeFilter.today)" [checked]="activeFilter === timeFilter.today" />
+                <label class="custom-control-label" for="radio-splitscreen" data-toggle="tooltip" data-placement="bottom" title="Heute">Heute</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="radio-splitscreen" name="radio-group-screen" class="custom-control-input" [value]="timeFilter.lastWeek" (click)="changeTimeFilter(timeFilter.lastWeek)" [checked]="activeFilter === timeFilter.lastWeek" />
+                <label class="custom-control-label" for="radio-splitscreen" data-toggle="tooltip" data-placement="bottom" title="Diese Woche">Diese Woche</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="radio-splitscreen" name="radio-group-screen" class="custom-control-input" [value]="timeFilter.lastMonth" (click)="changeTimeFilter(timeFilter.lastMonth)" [checked]="activeFilter === timeFilter.lastMonth" />
+                <label class="custom-control-label" for="radio-splitscreen" data-toggle="tooltip" data-placement="bottom" title="Dieser Monat">Dieser Monat</label>
+            </div>
+        </div>
+    </div>
+</div>
