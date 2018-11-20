@@ -8,6 +8,7 @@ import { IMetricMapping } from '../interfaces/IMetricMapping';
 import { IMetric } from '../interfaces/IMetric';
 import { ICommit } from '../interfaces/ICommit';
 import { INode } from '../interfaces/INode';
+import { AppConfig } from '../AppConfig';
 
 @Component({
   selector: 'general-view',
@@ -16,9 +17,9 @@ import { INode } from '../interfaces/INode';
 })
 export class GeneralViewComponent implements OnInit {
 
-  commits$: Observable<ICommit[]>;
-  availableMetrics$: Observable<IMetric[]>;
-  deltaTree$: Observable<INode>;
+  commits: ICommit[];
+  availableMetrics: IMetric[];
+  appMetrics: IMetric[];
 
   constructor(
     public commitService: CommitService,
@@ -26,7 +27,11 @@ export class GeneralViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.commits$ = this.commitService.loadCommits();
-    this.availableMetrics$ = this.metricService.loadAvailableMetrics();
+    this.commitService.loadCommits().subscribe(commits => {
+      this.commits = commits;
+      this.commits.sort((a, b) => b.timestamp - a.timestamp);
+    });
+    this.appMetrics = Array.from(new Set(AppConfig.METRIC_NAME_MAPPING));
+    //this.metricService.loadAvailableMetrics().subscribe(metrics => this.availableMetrics = metrics);
   }
 }

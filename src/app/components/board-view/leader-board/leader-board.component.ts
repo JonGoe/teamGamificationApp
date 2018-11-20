@@ -1,34 +1,46 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { IFilter } from '../../../interfaces/IFilter';
-import { NodeType } from '../../../enum/NodeType';
+import { ITimeFilterElement } from '../../../interfaces/ITimeFilterElement';
 import { AppConfig } from '../../../AppConfig';
 import { INode } from '../../../interfaces/INode';
-import { TooltipService } from '../../../service/tooltip.service';
-import { IMetricMapping } from '../../../interfaces/IMetricMapping';
-import { FocusService } from '../../../service/focus.service';
+import { IUserLeaderboardElement } from '../../../interfaces/IUserLeaderboardElement';
+import { ICommitElement } from '../../../interfaces/ICommitElement';
+import {faCaretDown, faCaretUp, faCaretRight, faPlusSquare, faChevronCircleRight, faJedi, faUser, faCalendarAlt, faSquare, faSortAmountUp} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-    selector: 'app-leader-board',
+    selector: 'leader-board',
     templateUrl: './leader-board.component.html',
-    styles: []
+    styleUrls: ['./leader-board.component.css']
 })
-export class LeaderBoardComponent implements OnInit, OnChanges, OnDestroy {
-    @Input() activeFilter: IFilter;
-    @Input() metricTree: INode;
-    @Input() metricMapping: IMetricMapping;
 
-    subscriptions: Subscription[] = [];
+export class LeaderBoardComponent implements OnChanges{
+  @Input() commitElements: ICommitElement[];
+  @Input() userLeaderboardElements: IUserLeaderboardElement[];
+  @Input() activeFilter: number;
 
-    constructor(private focusService: FocusService, private tooltipService: TooltipService) {}
+  formattedCommitElements: ICommitElement[];
+  formattedUserElements: IUserLeaderboardElement[];
 
-    ngOnChanges(changes: SimpleChanges) {}
+  faCaretDown = faCaretDown;
+  faCaretUp = faCaretUp;
+  faPlusSquare = faPlusSquare;
+  faChevronCircleRight = faChevronCircleRight;
+  faJedi = faJedi;
+  faUser = faUser;
+  faCalendarAlt = faCalendarAlt;
+  faSquare = faSquare;
+  faSortAmountUp = faSortAmountUp;
 
-    ngOnInit() {}
+  constructor() {}
 
-    ngOnDestroy() {
-        this.subscriptions.forEach((subscription: Subscription) => {
-            subscription.unsubscribe();
-        });
+  ngOnChanges() {
+    this.formattedCommitElements = [];
+    this.commitElements.sort((a, b) => b.totalPoints - a.totalPoints).filter(commitElement => commitElement.currentCommit.timestamp  > Date.now()-this.activeFilter);
+    console.log(this.commitElements);
+    this.formattedUserElements = this.userLeaderboardElements.sort((a, b) => b.totalUserPoints - a.totalUserPoints);
+
+    for(var i=0; i<10; i++) {
+      this.formattedCommitElements.push(this.commitElements[i]);
     }
+  }
 }

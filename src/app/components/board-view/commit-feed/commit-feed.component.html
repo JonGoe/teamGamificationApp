@@ -1,41 +1,42 @@
-<table *ngFor="let commitElement of commitElements" id="comparison-table" class="table table-striped table-sm">
-  <thead>
-  <tr>
-    <th>
-      <fa-icon [icon]="faJedi"></fa-icon>
-      {{commitElement.currentCommit.name}}
-    </th>
-  </tr>
-  <tr>
-    <td><fa-icon [icon]="faUser"></fa-icon>{{commitElement.currentCommit.author}}</td>
-    <td><fa-icon [icon]="faCalendarAlt"></fa-icon>{{commitElement.date}}</td>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngIf="commitElement.tableRows!=0">
-    <th>Metrik</th>
-    <th id="second-commit-id">Vorher</th>
-    <th id="first-commit-id">Nachher</th>
-    <th>Änderung</th>
-  </tr>
-  <tr *ngFor="let row of commitElement.tableRows">
-    <td>{{row.metricName}}</td>
-    <td>{{row.previousCommitValue}}</td>
-    <td>{{row.currentCommitValue}}</td>
-    <td>
-      <fa-icon *ngIf="row.difference > 0" [icon]="faCaretUp"></fa-icon>
-      <fa-icon *ngIf="row.difference < 0" [icon]="faCaretDown"></fa-icon>
-      {{row.difference}}
-    </td>
-  </tr>
-  <tr>
-    <th>
-      <fa-icon *ngIf="commitElement.totalPoints>0"[icon]="faPlusSquare"></fa-icon>
-      <fa-icon *ngIf="commitElement.totalPoints==0"[icon]="faSquare"></fa-icon>
-      {{commitElement.totalPoints}} Punkt(e)
-      <fa-icon *ngIf="commitElement.totalPoints>0"[icon]="faSortAmountUp"></fa-icon>
-      <fa-icon *ngIf="commitElement.totalPoints==0"[icon]="faSquare"></fa-icon>
-    </th>
-  </tr>
-  </tbody>
-</table>
+<div id="commit-feed">
+  <table *ngFor="let commitElement of formattedCommitElements" class="commit-feed-element" class="table table-striped table-sm">
+    <thead>
+    <tr>
+      <th colspan="5">{{commitElement.currentCommit.name}}</th>
+    </tr>
+    <tr>
+      <th colspan="2"><fa-icon [icon]="faUser"></fa-icon>{{commitElement.currentCommit.author}}</th>
+      <th colspan="3"><fa-icon [icon]="faCalendarAlt"></fa-icon>{{commitElement.date}}</th>
+    </tr>
+    </thead>
+    <tr class="metric-table" *ngIf="commitElement.tableRows!=0">
+      <th>Veränderte Metriken</th>
+      <th id="second-commit-id">Vorher</th>
+      <th id="first-commit-id">Nachher</th>
+      <th>Änderung</th>
+      <th>Punkte</th>
+    </tr>
+    <tbody>
+    <tr *ngFor="let row of commitElement.tableRows" class="commit-metric-data">
+      <td>{{row.metricName}}</td>
+      <td>{{row.previousCommitValue}}</td>
+      <td>{{row.currentCommitValue}}</td>
+      <td>
+        <fa-icon *ngIf="row.difference < 0" [icon]="faCaretUp"></fa-icon>
+        <fa-icon *ngIf="row.difference > 0" [icon]="faCaretDown"></fa-icon>
+        {{row.difference}}
+      </td>
+      <td>{{row.points}}</td>
+    </tr>
+    <tr>
+      <td colspan="5" class="commit-points">
+        <fa-icon *ngIf="commitElement.totalPoints>0"[icon]="faPlusSquare"></fa-icon>
+        <fa-icon *ngIf="commitElement.totalPoints==0"[icon]="faSquare"></fa-icon>
+        {{commitElement.totalPoints}}
+        <fa-icon *ngIf="commitElement.totalPoints>0"[icon]="faPlusSquare"></fa-icon>
+        <fa-icon *ngIf="commitElement.totalPoints==0"[icon]="faSquare"></fa-icon>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

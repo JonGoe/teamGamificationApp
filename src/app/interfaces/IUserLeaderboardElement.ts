@@ -1,4 +1,9 @@
+import { ICommitElement } from './ICommitElement';
+
 export interface IUserLeaderboardElement {
     user: string;
-    totalPoints: number;
+    totalUserPoints: number;
+    bestCommitName: string;
+    bestCommitDate: string;
+    bestCommitPoints: number;
 }

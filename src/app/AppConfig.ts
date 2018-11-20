@@ -1,5 +1,6 @@
 import { environment } from '../environments/environment';
 import { IMetric } from './interfaces/IMetric';
+import { ITimeFilterElement } from './interfaces/ITimeFilterElement';
 
 export class AppConfig {
     // CODERADAR SERVER CONFIG
@@ -7,192 +8,149 @@ export class AppConfig {
     static USERNAME = 'radar';
     static PASSWORD = 'Password12!';
 
+    static TIME_FILTER_MAPPING: ITimeFilterElement[] = [
+      {
+        name: "total",
+        timestampValue: -1,
+      },
+      {
+        name: "today",
+        timestampValue: 86400000,
+      },
+      {
+        name: "lastWeek",
+        timestampValue: 604800000,
+      },
+      {
+        name: "lastTwoWeeks",
+        timestampValue: 1209600000,
+      },
+      {
+        name: "lastMonth",
+        timestampValue: 2629743000 ,
+      },
+      {
+        name: "lastSixMonths",
+        timestampValue: 15778458000,
+      },
+    ];
+
     // METRIC NAME MAPPING
     static METRIC_NAME_MAPPING: IMetric[] = [
-        { shortName: 'Lines of Code (LOC)', metricName: 'coderadar:size:loc:java' },
-        { shortName: 'Comment Lines of Code (CLOC)', metricName: 'coderadar:size:cloc:java' },
-        { shortName: 'Source Lines of Code (SLOC)', metricName: 'coderadar:size:sloc:java' },
-        { shortName: 'Effective Lines of Code (ELOC)', metricName: 'coderadar:size:eloc:java' },
-        // tslint:disable-next-line:max-line-length
         {
             shortName: 'CyclomaticComplexity',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.metrics.CyclomaticComplexityCheck'
-        },
-        { shortName: 'JavaNCSS', metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.metrics.JavaNCSSCheck' },
-        { shortName: 'NPathComplexity', metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.metrics.NPathComplexityCheck' },
-        // tslint:disable-next-line:max-line-length
-        {
-            shortName: 'ExecutableStatementCount',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.sizes.ExecutableStatementCountCheck'
+            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.metrics.CyclomaticComplexityCheck',
+            pointValue: 15,
+            shortDescription: 'Checks cyclomatic complexity against a specified limit.'
         },
         {
-            shortName: 'NewlineAtEndOfFileCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck'
+            shortName: 'NPathComplexity',
+            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.metrics.NPathComplexityCheck',
+            pointValue: 15,
+            shortDescription: 'Checks the npath complexity against a specified limit.'
         },
         {
-            shortName: 'OuterTypeFilenameCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.OuterTypeFilenameCheck'
+            shortName: 'TodoComments',
+            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.TodoCommentCheck',
+            pointValue: 15,
+            shortDescription: 'A check for TODO comments.'
         },
         {
-            shortName: 'TodoCommentCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.TodoCommentCheck'
+            shortName: 'UncommentedMains',
+            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.UncommentedMainCheck',
+            pointValue: 5,
+            shortDescription: 'Detects uncommented main methods.'
         },
         {
-            shortName: 'UncommentedMainCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.UncommentedMainCheck'
+            shortName: 'EqualsAvoidNull',
+            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.EqualsAvoidNullCheck',
+            pointValue: 10,
+            shortDescription: 'Checks that any combination of String literals is on the left side of an equals() comparison.'
         },
         {
-            shortName: 'AnnotationUseStyleCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.annotation.AnnotationUseStyleCheck'
+            shortName: 'FinalLocalVariable',
+            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.FinalLocalVariableCheck',
+            pointValue: 5,
+            shortDescription: 'Ensures that local variables that never get their values changed, must be declared final.'
         },
         {
-            shortName: 'RightCurlyCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.blocks.RightCurlyCheck'
+            shortName: 'HiddenField',
+            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.HiddenFieldCheck',
+            pointValue: 5,
+            shortDescription: 'Checks that a local variable or a parameter does not shadow a field that is defined in the same class.'
         },
         {
-            shortName: 'DeclarationOrderCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.DeclarationOrderCheck'
+            shortName: 'IllegalCatch',
+            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.IllegalCatchCheck',
+            pointValue: 15,
+            shortDescription: 'Catching java.lang.Exception, java.lang.Error or java.lang.RuntimeException is almost never acceptable.'
         },
         {
-            shortName: 'EqualsAvoidNullCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.EqualsAvoidNullCheck'
+            shortName: 'MagicNumber',
+            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck',
+            pointValue: 15,
+            shortDescription: 'Checks for magic numbers.'
         },
         {
-            shortName: 'FinalLocalVariableCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.FinalLocalVariableCheck'
+            shortName: 'MultipleStringLiterals',
+            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.MultipleStringLiteralsCheck',
+            pointValue: 10,
+            shortDescription: 'Checks for multiple occurrences of the same string literal within a single file.'
         },
         {
-            shortName: 'HiddenFieldCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.HiddenFieldCheck'
-        },
-        {
-            shortName: 'IllegalCatchCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.IllegalCatchCheck'
-        },
-        {
-            shortName: 'MagicNumberCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck'
-        },
-        {
-            shortName: 'MultipleStringLiteralsCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.MultipleStringLiteralsCheck'
-        },
-        {
-            shortName: 'NestedTryDepthCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.NestedTryDepthCheck'
-        },
-        {
-            shortName: 'OverloadMethodsDeclarationOrderCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.OverloadMethodsDeclarationOrderCheck'
-        },
-        {
-            shortName: 'ParameterAssignmentCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.ParameterAssignmentCheck'
+            shortName: 'OverloadMethodsDeclarationOrder',
+            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.OverloadMethodsDeclarationOrderCheck',
+            pointValue: 5,
+            shortDescription: 'Checks that overload methods are grouped together.'
         },
         {
             shortName: 'ReturnCount',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.ReturnCountCheck'
+            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.ReturnCountCheck',
+            pointValue: 10,
+            shortDescription: ' Restricts return statements to a specified count (default = 2).'
         },
         {
             shortName: 'VariableDeclarationUsageDistance',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.VariableDeclarationUsageDistanceCheck'
+            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.VariableDeclarationUsageDistanceCheck',
+            pointValue: 5,
+            shortDescription: 'Checks the distance between declaration of variable and its first usage.'
         },
         {
-            shortName: 'FinalClassCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.design.FinalClassCheck'
+            shortName: 'HideUtilityClassConstructor',
+            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.design.HideUtilityClassConstructorCheck',
+            pointValue: 5,
+            shortDescription: 'Make sure that utility classes (classes that contain only static methods) do not have a public constructor.'
         },
         {
-            shortName: 'HideUtilityClassConstructorCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.design.HideUtilityClassConstructorCheck'
+            shortName: 'AvoidStarImport',
+            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck',
+            pointValue: 5,
+            shortDescription: 'Check that finds import statements that use the * notation.'
         },
         {
-            shortName: 'InnerTypeLastCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.design.InnerTypeLastCheck'
+            shortName: 'AvoidStaticImport',
+            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.imports.AvoidStaticImportCheck',
+            pointValue: 5,
+            shortDescription: 'Check that finds static imports.'
         },
         {
-            shortName: 'AvoidStarImportCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck'
+            shortName: 'UnusedImports',
+            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.imports.UnusedImportsCheck',
+            pointValue: 10,
+            shortDescription: 'Checks for unused import statements.'
         },
         {
-            shortName: 'AvoidStaticImportCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.imports.AvoidStaticImportCheck'
+            shortName: 'AbstractClassName',
+            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.name.AbstractClassNameCheck',
+            pointValue: 5,
+            shortDescription: 'Ensures that the names of abstract classes conforming to some regular expression and check that abstract modifier exists. '
         },
         {
-            shortName: 'CustomImportOrderCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.imports.CustomImportOrderCheck'
+            shortName: 'LineLength',
+            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck',
+            pointValue: 5,
+            shortDescription: 'Checks for long lines.'
         },
-        {
-            shortName: 'ImportOrderCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.imports.ImportOrderCheck'
-        },
-        {
-            shortName: 'UnusedImportsCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.imports.UnusedImportsCheck'
-        },
-        {
-            shortName: 'IndentationCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck'
-        },
-        {
-            shortName: 'JavadocMethodCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocMethodCheck'
-        },
-        {
-            shortName: 'JavadocPackageCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocPackageCheck'
-        },
-        {
-            shortName: 'JavadocStyleCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocStyleCheck'
-        },
-        {
-            shortName: 'JavadocTypeCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocTypeCheck'
-        },
-        {
-            shortName: 'JavadocVariableCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocVariableCheck'
-        },
-        {
-            shortName: 'WriteTagCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.javadoc.WriteTagCheck'
-        },
-        {
-            shortName: 'CyclomaticComplexityCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.metrics.CyclomaticComplexityCheck'
-        },
-        {
-            shortName: 'NPathComplexityCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.metrics.NPathComplexityCheck'
-        },
-        {
-            shortName: 'ModifierOrderCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.modifier.ModifierOrderCheck'
-        },
-        {
-            shortName: 'AbstractClassNameCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.name.AbstractClassNameCheck'
-        },
-        {
-            shortName: 'RegexpMultilineCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.regexp.RegexpMultilineCheck'
-        },
-        {
-            shortName: 'LineLengthCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck'
-        },
-        {
-            shortName: 'OperatorWrapCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.whitespace.OperatorWrapCheck'
-        },
-        {
-            shortName: 'WhitespaceAroundCheck',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck'
-        },
-        {
-            shortName: 'defaultMetric',
-            metricName: 'default'
-        }
     ];
 
     // VISUALIZATION SETTINGS
@@ -224,9 +182,6 @@ export class AppConfig {
     static COLOR_UNCHANGED_FILE = '#cccccc';
 
     static getShortNameByMetricName(metricName: string): IMetric {
-        //console.log(metricName);
-        //console.log(this.METRIC_NAME_MAPPING.find(namePair => namePair.metricName === metricName));
-
         return this.METRIC_NAME_MAPPING.find(namePair => namePair.metricName === metricName);
     }
 }

@@ -7,6 +7,8 @@ import { HttpModule } from '@angular/http';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MatCardModule, MatIconModule, MatToolbarModule, MatButtonModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppComponent } from './app.component';
 import { ViewModule } from './components/general-view.module';
 import { CommitService } from './service/commit.service';
@@ -26,6 +28,7 @@ import { environment } from '../environments/environment';
         ReactiveFormsModule,
         HttpModule,
         FontAwesomeModule,
+        FlexLayoutModule,
         ViewModule,
         environment.production ? [] : StoreDevtoolsModule.instrument({ maxAge: 50 })
     ],

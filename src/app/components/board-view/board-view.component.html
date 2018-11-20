@@ -1,1 +1,32 @@
-<commit-feed [commitElements]="ICommitElements">Loading...</commit-feed>
+<div class="header">
+  <p>Team-Gamification-App</p>
+</div>
+<div class="choose-time-filter">
+  <input type="radio" id="radio-total" name="radio-group-screen" class="custom-control-input" [value]="100000000000" [(ngModel)]="activeTimeFilterValue" checked="checked" />
+  <label class="custom-control-label" for="radio-total" title="Insgesamt">Insgesamt</label>
+  <input type="radio" id="radio-today" name="radio-group-screen" class="custom-control-input" [value]="86400000" [(ngModel)]="activeTimeFilterValue"/>
+  <label class="custom-control-label" for="radio-today" title="Heute">Heute</label>
+  <input type="radio" id="radio-week" name="radio-group-screen" class="custom-control-input" [value]="604800000" [(ngModel)]="activeTimeFilterValue"/>
+  <label class="custom-control-label" for="radio-week" title="Diese Woche">Diese Woche</label>
+  <input type="radio" id="radio-month" name="radio-group-screen" class="custom-control-input" [value]="2629743000" [(ngModel)]="activeTimeFilterValue"/>
+  <label class="custom-control-label" for="radio-month" title="Dieser Monat">Dieser Monat</label>
+  <input type="radio" id="radio-six-months" name="radio-group-screen" class="custom-control-input" [value]="15778458000" [(ngModel)]="activeTimeFilterValue"/>
+  <label class="custom-control-label" for="radio-six-months" title="Letzten 6 Monate">Dieses Halbjahr</label>
+</div>
+<div class="board-container">
+  <div class="leader-board-container">
+      <leader-board
+        *ngIf="ICommitElements.length == commits.length-1 && IUserLeaderboardElements && activeTimeFilterValue"
+        [commitElements]="ICommitElements"
+        [userLeaderboardElements]="IUserLeaderboardElements"
+        [activeFilter]="activeTimeFilterValue">Loading...
+      </leader-board>
+  </div>
+  <div class="commit-feed-container">
+      <commit-feed
+        *ngIf="ICommitElements.length == commits.length-1 && activeTimeFilterValue"
+        [commitElements]="ICommitElements"
+        [activeFilter]="activeTimeFilterValue">Loading...
+      </commit-feed>
+  </div>
+</div>

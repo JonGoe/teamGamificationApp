@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BoardViewModule } from './board-view/board-view.module';
-import { ControlPanelModule } from './control-panel/control-panel.module';
 import { GeneralViewComponent } from './general-view.component';
 
 @NgModule({
@@ -10,13 +9,12 @@ import { GeneralViewComponent } from './general-view.component';
     CommonModule,
     FormsModule,
     BoardViewModule,
-    ControlPanelModule
   ],
   declarations: [
-    GeneralViewComponent
+    GeneralViewComponent,
   ],
   exports: [
-    GeneralViewComponent
+    GeneralViewComponent,
   ],
 })
 export class ViewModule { }

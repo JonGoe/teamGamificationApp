@@ -1,14 +1,18 @@
 import {Component, Input, OnInit, OnChanges, OnDestroy, SimpleChanges} from '@angular/core';
 import { ICommitElement } from '../../../interfaces/ICommitElement';
+import { TimeFilter } from '../../../enum/TimeFilter';
 import {faCaretDown, faCaretUp, faCaretRight, faPlusSquare, faChevronCircleRight, faJedi, faUser, faCalendarAlt, faSquare, faSortAmountUp} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'commit-feed',
     templateUrl: './commit-feed.component.html',
-    styles: []
+    styleUrls: ['./commit-feed.component.css']
 })
-export class CommitFeedComponent implements OnInit {
+export class CommitFeedComponent implements OnChanges{
   @Input() commitElements: ICommitElement[];
+  @Input() activeFilter: number;
+
+  formattedCommitElements: ICommitElement[];
 
   faCaretDown = faCaretDown;
   faCaretUp = faCaretUp;
@@ -22,14 +26,10 @@ export class CommitFeedComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {
-    /**this.commitElements.sort(function(a,b){
-      return new Date(b.date) - new Date(a.date);
-    });**/
-    this.commitElements.sort((a, b) => a.currentCommit.timestamp - b.currentCommit.timestamp);
-    console.log("----------------------------------------------");
-    for(var i=0; i<this.commitElements.length; i++) {
-      console.log(this.commitElements[i].date);
-    }
+  ngOnChanges() {
+
+   this.commitElements.sort((a, b) => b.currentCommit.timestamp - a.currentCommit.timestamp);
+
+    this.formattedCommitElements = this.commitElements.filter(commitElement => commitElement.currentCommit.timestamp  > Date.now()-this.activeFilter);
   }
 }
