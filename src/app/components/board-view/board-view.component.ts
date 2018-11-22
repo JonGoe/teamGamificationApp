@@ -39,6 +39,11 @@ export class BoardViewComponent implements OnInit {
       console.log(this.commits);
       console.log(this.availableMetrics);
 
+      console.log(Date.now()-15778458000);
+      this.commits.filter(ICommit => ICommit.timestamp  > (Date.now()-15778458000));
+      console.log(this.commits);
+      this.activeTimeFilterValue = 15778458000;
+
       this.ICommitElements = [];
       this.IUserLeaderboardElements = [];
 

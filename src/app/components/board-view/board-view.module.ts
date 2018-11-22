@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
+import { SharedModule } from '../shared-components/shared.module';
 import { BoardViewComponent } from './board-view.component';
 import { CommitFeedComponent } from './commit-feed/commit-feed.component';
 import { LeaderBoardComponent } from './leader-board/leader-board.component';
@@ -12,17 +13,18 @@ import { environment } from '../../../environments/environment';
     imports: [
         CommonModule,
         FontAwesomeModule,
-        FormsModule
+        FormsModule,
+        SharedModule
     ],
     declarations: [
         BoardViewComponent,
         CommitFeedComponent,
-        LeaderBoardComponent
+        LeaderBoardComponent,
     ],
     exports: [
         BoardViewComponent,
         CommitFeedComponent,
-        LeaderBoardComponent
+        LeaderBoardComponent,
     ],
 })
 export class BoardViewModule {}

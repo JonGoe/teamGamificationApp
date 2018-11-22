@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { ViewModule } from './components/general-view.module';
 import { CommitService } from './service/commit.service';
 import { MetricService } from './service/metric.service';
+import { SetupService } from './service/setup.service';
 import { environment } from '../environments/environment';
 
 
@@ -34,7 +35,8 @@ import { environment } from '../environments/environment';
     ],
     providers: [
         CommitService,
-        MetricService
+        MetricService,
+        SetupService
     ],
     bootstrap: [AppComponent]
 })
