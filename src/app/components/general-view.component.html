@@ -1,11 +1,5 @@
 <app-header></app-header>
-<board-view *ngIf="commits && appMetrics && appMetrics.length; else loadingScreen"
+<board-view *ngIf="commits && appMetrics"
             [commits]="commits"
             [availableMetrics]="appMetrics">
 </board-view>
-<ng-template #loadingScreen>
-  <loading-screen
-    [loadingIterator]=""
-    [loadingElements]="">
-  </loading-screen>
-</ng-template>
