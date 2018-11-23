@@ -31,8 +31,8 @@ export class GeneralViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.serverSetUp = true;
-    //this.serverSetUp = this.setupService.setupServer();
+    this.serverSetUp = false;
+    this.setupService.setupServer();
     if(this.serverSetUp) {
       this.commitService.loadCommits().subscribe(commits => {
         commits

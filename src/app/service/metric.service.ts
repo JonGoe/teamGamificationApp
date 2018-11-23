@@ -18,7 +18,7 @@ export class MetricService {
     }
 
     loadAvailableMetrics(): Observable<IMetric[]> {
-      return this.http.get<IAvailableMetricsGetResponse>(`${AppConfig.BASE_URL}/projects/1/metrics`)
+      return this.http.get<IAvailableMetricsGetResponse>(`${AppConfig.BASE_URL}/projects/8/metrics`)
         .pipe(map((result: IAvailableMetricsGetResponse) => result._embedded.metricResourceList.map(metric => AppConfig.getShortNameByMetricName(metric.metricName))));
     }
 
@@ -30,9 +30,9 @@ export class MetricService {
         };
 
         //console.log(currentCommit.name);
-        //console.log(this.http.post<INode>(`${AppConfig.BASE_URL}/projects/1/metricvalues/deltaTree`, body));
+        //console.log(this.http.post<INode>(`${AppConfig.BASE_URL}/projects/8/metricvalues/deltaTree`, body));
 
-        return this.http.post<INode>(`${AppConfig.BASE_URL}/projects/1/metricvalues/deltaTree`, body);
+        return this.http.post<INode>(`${AppConfig.BASE_URL}/projects/8/metricvalues/deltaTree`, body);
     }
 
 }

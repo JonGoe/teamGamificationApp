@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ICommitsGetResponse} from '../interfaces/ICommitsGetResponse';
+import {IAccessTokenPostResponse} from '../interfaces/IAccessTokenPostResponse';
 import {ICommit} from '../interfaces/ICommit';
 import {Observable, Subject} from 'rxjs';
 import {map} from 'rxjs/operators';
@@ -9,50 +9,46 @@ import {environment} from '../../environments/environment';
 
 @Injectable()
 export class SetupService {
-    accessToken: any;
 
     constructor(private http: HttpClient) {
     }
 
     setupServer(): boolean {
-      this.registerUser();
+      var accessToken: string;
+      this.authorizeUser().subscribe(loginResult => {
+        accessToken = loginResult;
+        console.log(accessToken);
+        /**this.createProject(accessToken);
+        this.addFilePattern(accessToken);
+        this.addAnalyzerConfig(accessToken);
+        this.addAnalyzingStrategy(accessToken);**/
+      });
       return true;
     }
 
-    registerUser() {
+    registerUser(): Observable<any> {
       console.log('registering user...');
-      console.log("Dies ist das ursprüngliche Access-Token");
-      console.log(this.accessToken);
-      return this.http.post('http://localhost:8080/user/registration',
+      return this.http.post(`${AppConfig.BASE_URL}/user/registration`,
           {
               "username" : AppConfig.USERNAME,
               "password" : AppConfig.PASSWORD
-          }
-      ).pipe(map(result => {
-                this.accessToken = result.accessToken;
-                this.authorizeUser();
-                this.createProject();
-                this.addFilePattern();
-                this.addAnalyzerConfig();
-                this.addAnalyzingStrategy();
-              }));
-    }
-    authorizeUser(access) {
-      console.log('authorizing user...');
-      return this.http.post('http://localhost:8080/user/auth',
-          {
-              "username" : AppConfig.USERNAME,
-              "password" : AppConfig.PASSWORD
-          },
-          {
-              headers: {'Authorization': accessToken}
           }
       );
     }
 
-    createProject() {
+    authorizeUser(): Observable<string> {
+      console.log('authorizing user...');
+      return this.http.post<IAccessTokenPostResponse>(`${AppConfig.BASE_URL}/user/auth`,
+          {
+              "username" : AppConfig.USERNAME,
+              "password" : AppConfig.PASSWORD
+          }
+      ).pipe(map((result: IAccessTokenPostResponse) => result.accessToken));
+    }
+
+    createProject(accessToken: string) {
       console.log('creating project...');
-      return this.http.post('http://localhost:8080/projects',
+      return this.http.post(`${AppConfig.BASE_URL}/projects`,
           {
             "name" : "budgeteer",
             "vcsUrl" : "https://github.com/adessoAG/budgeteer.git",
@@ -65,9 +61,9 @@ export class SetupService {
       );
     }
 
-    addFilePattern() {
+    addFilePattern(accessToken: string) {
       console.log('adding file pattern...');
-      return this.http.post('http://localhost:8080/projects/1/files',
+      return this.http.post(`${AppConfig.BASE_URL}/projects/1/files`,
           {
               "filePatterns": [{
                   "pattern": "**/*.java",
@@ -81,7 +77,7 @@ export class SetupService {
       );
     }
 
-    addAnalyzerConfig() {
+    addAnalyzerConfig(accessToken: string) {
       console.log('adding analyzing configs...');
 
       var enabledAnalyzerPlugins = [
@@ -92,7 +88,7 @@ export class SetupService {
       var promises = [];
       for (var pluginName of enabledAnalyzerPlugins) {
           promises.push(
-              this.http.post('http://localhost:8080/projects/1/analyzers',
+              this.http.post(`${AppConfig.BASE_URL}/projects/1/analyzers`,
                   {
                       "analyzerName": pluginName,
                       "enabled": true
@@ -103,17 +99,14 @@ export class SetupService {
               )
           );
       }
-
-      return this.http.all(promises);
     }
 
-    addAnalyzingStrategy() {
+    addAnalyzingStrategy(accessToken: string) {
         console.log('adding analyzing strategy...');
-        var fromDate = new Date(fromYear, fromMonth - 1, fromDay);
 
-        return this.http.post('http://localhost:8080/projects/1/analyzingJob',
+        return this.http.post(`${AppConfig.BASE_URL}/projects/1/analyzingJob`,
             {
-                "fromDate" : fromDate.getTime(),
+                "fromDate" : "1538352000000",
                 "active" : true,
                 "rescan" : true
             },
