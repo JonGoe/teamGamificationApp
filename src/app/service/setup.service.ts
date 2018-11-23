@@ -63,7 +63,7 @@ export class SetupService {
 
     addFilePattern(accessToken: string) {
       console.log('adding file pattern...');
-      return this.http.post(`${AppConfig.BASE_URL}/projects/1/files`,
+      return this.http.post(`${AppConfig.BASE_URL}/projects/8/files`,
           {
               "filePatterns": [{
                   "pattern": "**/*.java",
@@ -88,7 +88,7 @@ export class SetupService {
       var promises = [];
       for (var pluginName of enabledAnalyzerPlugins) {
           promises.push(
-              this.http.post(`${AppConfig.BASE_URL}/projects/1/analyzers`,
+              this.http.post(`${AppConfig.BASE_URL}/projects/8/analyzers`,
                   {
                       "analyzerName": pluginName,
                       "enabled": true
@@ -104,7 +104,7 @@ export class SetupService {
     addAnalyzingStrategy(accessToken: string) {
         console.log('adding analyzing strategy...');
 
-        return this.http.post(`${AppConfig.BASE_URL}/projects/1/analyzingJob`,
+        return this.http.post(`${AppConfig.BASE_URL}/projects/8/analyzingJob`,
             {
                 "fromDate" : "1538352000000",
                 "active" : true,
