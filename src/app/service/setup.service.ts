@@ -18,10 +18,10 @@ export class SetupService {
       this.authorizeUser().subscribe(loginResult => {
         accessToken = loginResult;
         console.log(accessToken);
-        /**this.createProject(accessToken);
+        this.createProject(accessToken);
         this.addFilePattern(accessToken);
         this.addAnalyzerConfig(accessToken);
-        this.addAnalyzingStrategy(accessToken);**/
+        this.addAnalyzingStrategy(accessToken);
       });
       return true;
     }
