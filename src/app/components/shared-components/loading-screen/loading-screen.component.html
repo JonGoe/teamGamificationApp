@@ -1,6 +1,6 @@
 <div class="preloader">
   <div *ngIf="iterator && loadingElements; else ladeAllgemein">
-    {{iterator}} von {{loadingElements}} werden ausgewertet...
+    {{loadingIterator}} von {{loadingElements}} werden ausgewertet...
   </div>
   <ng-template #ladeAllgemein><div>Commits werden geladen...</div></ng-template>
   <span class="line line-1"></span>
