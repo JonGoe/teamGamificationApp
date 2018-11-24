@@ -9,12 +9,13 @@ import {IMetric} from '../interfaces/IMetric';
 import {AppConfig} from '../AppConfig';
 import {delay, map, mergeMap} from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { SetupService } from '../setup.service';
 import { IAvailableMetricsGetResponse } from '../interfaces/IAvailableMetricsGetResponse';
 
 @Injectable()
 export class MetricService {
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private setupService: SetupService) {
     }
 
     loadAvailableMetrics(): Observable<IMetric[]> {
@@ -31,8 +32,11 @@ export class MetricService {
 
         //console.log(currentCommit.name);
         //console.log(this.http.post<INode>(`${AppConfig.BASE_URL}/projects/8/metricvalues/deltaTree`, body));
-
-        return this.http.post<INode>(`${AppConfig.BASE_URL}/projects/8/metricvalues/deltaTree`, body);
+        this.setupService.authorizeUser().subscribe(loginResult => {
+          accessToken = loginResult;
+          console.log(accessToken);
+          return this.http.post<INode>(`${AppConfig.BASE_URL}/projects/8/metricvalues/deltaTree`, body, {headers: {'Authorization': accessToken}});
+        }
     }
 
 }

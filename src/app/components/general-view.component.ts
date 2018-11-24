@@ -31,12 +31,12 @@ export class GeneralViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.serverSetUp = false;
+    this.serverSetUp = true;
     this.setupService.setupServer();
     if(this.serverSetUp) {
       this.commitService.loadCommits().subscribe(commits => {
         commits
-          .filter(ICommit => ICommit.timestamp  > (Date.now()-15778458000))
+          .filter(ICommit => ICommit.timestamp  > (Date.now()-2629743000))
           .filter(ICommit => ICommit.analyzed == true)
           .sort((a, b) => b.timestamp - a.timestamp);
         this.commits = commits;

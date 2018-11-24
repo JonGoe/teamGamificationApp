@@ -4,8 +4,8 @@ import { ITimeFilterElement } from './interfaces/ITimeFilterElement';
 
 export class AppConfig {
     // CODERADAR SERVER CONFIG
-    static BASE_URL = 'https://adesso-coderadar-dev01.test-server.ag';
-    //static BASE_URL = 'http://localhost:8080';
+    //static BASE_URL = 'https://adesso-coderadar-dev01.test-server.ag';
+    static BASE_URL = 'http://localhost:8080';
     static USERNAME = 'radar';
     static PASSWORD = 'Password12!';
 

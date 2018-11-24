@@ -18,10 +18,10 @@ export class SetupService {
       this.authorizeUser().subscribe(loginResult => {
         accessToken = loginResult;
         console.log(accessToken);
-        this.createProject(accessToken);
+        /**this.createProject(accessToken);
         this.addFilePattern(accessToken);
         this.addAnalyzerConfig(accessToken);
-        this.addAnalyzingStrategy(accessToken);
+        this.addAnalyzingStrategy(accessToken);**/
       });
       return true;
     }
@@ -42,7 +42,7 @@ export class SetupService {
           {
               "username" : AppConfig.USERNAME,
               "password" : AppConfig.PASSWORD
-          }
+          },
       ).pipe(map((result: IAccessTokenPostResponse) => result.accessToken));
     }
 
@@ -65,11 +65,16 @@ export class SetupService {
       console.log('adding file pattern...');
       return this.http.post(`${AppConfig.BASE_URL}/projects/8/files`,
           {
-              "filePatterns": [{
-                  "pattern": "**/*.java",
-                  "inclusionType": "INCLUDE",
-                  "fileSetType": "SOURCE"
-              }]
+            "filePatterns" : [ {
+              "pattern" : "budgeteer-web-interface/src/main/java/**/*.java",
+              "inclusionType" : "INCLUDE",
+              "fileSetType" : "SOURCE"
+            },
+            {
+              "pattern": "budgeteer-web-interface/src/main/java/src/main/java/**/*.html",
+              "inclusionType": "INCLUDE",
+              "fileSetType": "SOURCE"
+            } ]
           },
           {
               headers: {'Authorization': accessToken}
