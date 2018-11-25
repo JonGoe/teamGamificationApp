@@ -12,7 +12,6 @@ export class CommitFeedComponent implements OnChanges{
   @Input() commitElements: ICommitElement[];
   @Input() activeFilter: number;
 
-  formattedCommitElements: ICommitElement[];
 
   faCaretDown = faCaretDown;
   faCaretUp = faCaretUp;
@@ -28,8 +27,7 @@ export class CommitFeedComponent implements OnChanges{
 
   ngOnChanges() {
 
-   this.commitElements.sort((a, b) => b.currentCommit.timestamp - a.currentCommit.timestamp);
+   this.commitElements.sort((a, b) => b.currentCommit.timestamp - a.currentCommit.timestamp).filter(commitElement => commitElement.currentCommit.timestamp  > Date.now()-this.activeFilter);
 
-    this.formattedCommitElements = this.commitElements.filter(commitElement => commitElement.currentCommit.timestamp  > Date.now()-this.activeFilter);
   }
 }

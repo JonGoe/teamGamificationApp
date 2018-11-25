@@ -9,7 +9,7 @@ import {IMetric} from '../interfaces/IMetric';
 import {AppConfig} from '../AppConfig';
 import {delay, map, mergeMap} from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { SetupService } from '../setup.service';
+import { SetupService } from './setup.service';
 import { IAvailableMetricsGetResponse } from '../interfaces/IAvailableMetricsGetResponse';
 
 @Injectable()
@@ -23,20 +23,20 @@ export class MetricService {
         .pipe(map((result: IAvailableMetricsGetResponse) => result._embedded.metricResourceList.map(metric => AppConfig.getShortNameByMetricName(metric.metricName))));
     }
 
-    loadDeltaTree(currentCommit: ICommit, previousCommit: ICommit, metricNames: string[]): Observable<INode> {
+    loadDeltaTree(accessToken: string, currentCommit: ICommit, previousCommit: ICommit, metricNames: string[]): Observable<INode> {
+        //console.log("--------LOADING-DELTATREE---------");
+        //console.log(accessToken);
+
         const body = {
             'commit1': currentCommit.name,
             'commit2': previousCommit.name,
             'metrics': metricNames
         };
 
-        //console.log(currentCommit.name);
-        //console.log(this.http.post<INode>(`${AppConfig.BASE_URL}/projects/8/metricvalues/deltaTree`, body));
-        this.setupService.authorizeUser().subscribe(loginResult => {
-          accessToken = loginResult;
-          console.log(accessToken);
-          return this.http.post<INode>(`${AppConfig.BASE_URL}/projects/8/metricvalues/deltaTree`, body, {headers: {'Authorization': accessToken}});
-        }
+        return this.http.post<INode>(
+          `${AppConfig.BASE_URL}/projects/1/metricvalues/deltaTree`,
+          body,
+          {headers: {'Authorization': accessToken}}
+        );
     }
-
 }

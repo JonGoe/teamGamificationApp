@@ -40,7 +40,9 @@ export class LeaderBoardComponent implements OnChanges{
     this.formattedUserElements = this.userLeaderboardElements.sort((a, b) => b.totalUserPoints - a.totalUserPoints);
 
     for(var i=0; i<10; i++) {
-      this.formattedCommitElements.push(this.commitElements[i]);
+      if(this.commitElements[i]) {
+        this.formattedCommitElements.push(this.commitElements[i]);
+      }
     }
   }
 }

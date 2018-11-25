@@ -14,22 +14,25 @@
     <input type="radio" id="radio-month" name="radio-group-screen" class="custom-control-input" [value]="2629743000" [(ngModel)]="activeTimeFilterValue"/>
     <label class="custom-control-label" for="radio-month" title="Dieser Monat">1 Monat</label>
   </div>
-  <div class="board-container">
-    <div class="leader-board-container">
-      <leader-board
-        [commitElements]="ICommitElements"
-        [userLeaderboardElements]="IUserLeaderboardElements"
-        [activeFilter]="activeTimeFilterValue">Loading...
-      </leader-board>
-    </div>
-    <div class="commit-feed-container">
-      <commit-feed
-        [commitElements]="ICommitElements"
-        [activeFilter]="activeTimeFilterValue">Loading...
-      </commit-feed>
-    </div>
+</div>
+<div class="board-container" *ngIf="ICommitElements.length > 1
+                                      && IUserLeaderboardElements
+                                      && activeTimeFilterValue">
+  <div class="leader-board-container">
+    <leader-board
+      [commitElements]="ICommitElements"
+      [userLeaderboardElements]="IUserLeaderboardElements"
+      [activeFilter]="activeTimeFilterValue">Loading...
+    </leader-board>
+  </div>
+  <div class="commit-feed-container">
+    <commit-feed
+      [commitElements]="ICommitElements"
+      [activeFilter]="activeTimeFilterValue">Loading...
+    </commit-feed>
   </div>
 </div>
+
 <ng-template #loadingScreen>
   <loading-screen
     [loadingIterator]="ICommitElements.length"

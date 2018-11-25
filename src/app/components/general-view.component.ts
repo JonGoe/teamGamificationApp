@@ -21,6 +21,8 @@ export class GeneralViewComponent implements OnInit {
   commits: ICommit[];
   availableMetrics: IMetric[];
   appMetrics: IMetric[];
+  expAccessToken: Observable<string>;
+  tempAccessToken: string;
 
   serverSetUp: boolean;
 
@@ -31,18 +33,20 @@ export class GeneralViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.serverSetUp = true;
-    this.setupService.setupServer();
+    this.serverSetUp = this.setupService.setupServer();
+    this.expAccessToken = this.setupService.authorizeUser();
     if(this.serverSetUp) {
-      this.commitService.loadCommits().subscribe(commits => {
-        commits
-          .filter(ICommit => ICommit.timestamp  > (Date.now()-2629743000))
-          .filter(ICommit => ICommit.analyzed == true)
-          .sort((a, b) => b.timestamp - a.timestamp);
-        this.commits = commits;
+      this.setupService.authorizeUser().subscribe(loginResultAccessToken => {
+        this.commitService.loadCommits(loginResultAccessToken).subscribe(commits => {
+          commits
+            .filter(ICommit => ICommit.timestamp  > (Date.now()-2629743000))
+            .filter(ICommit => ICommit.analyzed == true)
+            .sort((a, b) => b.timestamp - a.timestamp);
+          this.commits = commits;
+        });
+        this.appMetrics = Array.from(new Set(AppConfig.METRIC_NAME_MAPPING));
+        //this.metricService.loadAvailableMetrics().subscribe(metrics => this.availableMetrics = metrics);
       });
-      this.appMetrics = Array.from(new Set(AppConfig.METRIC_NAME_MAPPING));
-      //this.metricService.loadAvailableMetrics().subscribe(metrics => this.availableMetrics = metrics);
     }
   }
 }

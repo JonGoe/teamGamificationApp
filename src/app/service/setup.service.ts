@@ -17,7 +17,7 @@ export class SetupService {
       var accessToken: string;
       this.authorizeUser().subscribe(loginResult => {
         accessToken = loginResult;
-        console.log(accessToken);
+        //console.log(accessToken);
         /**this.createProject(accessToken);
         this.addFilePattern(accessToken);
         this.addAnalyzerConfig(accessToken);

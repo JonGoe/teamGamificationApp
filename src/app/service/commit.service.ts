@@ -13,13 +13,12 @@ export class CommitService {
     constructor(private http: HttpClient) {
     }
 
-    loadCommits(): Observable<ICommit[]> {
-      this.setupService.authorizeUser().subscribe(loginResult => {
-        accessToken = loginResult;
-        console.log(accessToken);
-        return this.http.get<ICommitsGetResponse>(
-          `${AppConfig.BASE_URL}/projects/8/commits?page=0&size=999`,
-          {headers: {'Authorization': accessToken}}
-        ).pipe(map((result: ICommitsGetResponse) => result._embedded.commitResourceList));
+    loadCommits(accessToken: string): Observable<ICommit[]> {
+      console.log("--------LOADING-COMMITS---------");
+      console.log(accessToken);
+      return this.http.get<ICommitsGetResponse>(
+        `${AppConfig.BASE_URL}/projects/1/commits?page=0&size=999`,
+        {headers: {'Authorization': accessToken}}
+      ).pipe(map((result: ICommitsGetResponse) => result._embedded.commitResourceList));
     }
 }
