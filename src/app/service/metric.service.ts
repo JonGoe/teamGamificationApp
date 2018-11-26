@@ -34,7 +34,7 @@ export class MetricService {
         };
 
         return this.http.post<INode>(
-          `${AppConfig.BASE_URL}/projects/1/metricvalues/deltaTree`,
+          `${AppConfig.BASE_URL}/projects/8/metricvalues/deltaTree`,
           body,
           {headers: {'Authorization': accessToken}}
         );

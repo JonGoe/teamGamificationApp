@@ -33,20 +33,16 @@ export class GeneralViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.serverSetUp = this.setupService.setupServer();
-    this.expAccessToken = this.setupService.authorizeUser();
-    if(this.serverSetUp) {
-      this.setupService.authorizeUser().subscribe(loginResultAccessToken => {
-        this.commitService.loadCommits(loginResultAccessToken).subscribe(commits => {
-          commits
-            .filter(ICommit => ICommit.timestamp  > (Date.now()-2629743000))
-            .filter(ICommit => ICommit.analyzed == true)
-            .sort((a, b) => b.timestamp - a.timestamp);
-          this.commits = commits;
-        });
-        this.appMetrics = Array.from(new Set(AppConfig.METRIC_NAME_MAPPING));
-        //this.metricService.loadAvailableMetrics().subscribe(metrics => this.availableMetrics = metrics);
+    this.setupService.authorizeUser().subscribe(loginResultAccessToken => {
+      this.commitService.loadCommits(loginResultAccessToken).subscribe(commits => {
+        commits
+          .filter(ICommit => ICommit.timestamp  > (Date.now()-2629743000))
+          .filter(ICommit => ICommit.analyzed == true)
+          .sort((a, b) => b.timestamp - a.timestamp);
+        this.commits = commits;
       });
-    }
+      this.appMetrics = Array.from(new Set(AppConfig.METRIC_NAME_MAPPING));
+      //this.metricService.loadAvailableMetrics().subscribe(metrics => this.availableMetrics = metrics);
+    });
   }
 }
