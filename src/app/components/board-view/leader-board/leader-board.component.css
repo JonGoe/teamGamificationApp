@@ -14,6 +14,10 @@
 
 }
 
+.even { background-color: #213B4C; }
+.odd { background-color: #0C1E28; }
+.first { background-color: green; }
+
 table {
   width: 80%;
   border-spacing: 0 0;

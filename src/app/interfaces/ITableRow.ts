@@ -6,4 +6,5 @@ export interface ITableRow {
     previousCommitValue: any;
     difference: any;
     points: number;
+    metricValueDown: boolean;
 }

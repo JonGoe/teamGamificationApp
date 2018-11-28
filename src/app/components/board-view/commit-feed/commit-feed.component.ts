@@ -28,6 +28,5 @@ export class CommitFeedComponent implements OnChanges{
   ngOnChanges() {
 
    this.commitElements.sort((a, b) => b.currentCommit.timestamp - a.currentCommit.timestamp).filter(commitElement => commitElement.currentCommit.timestamp  > Date.now()-this.activeFilter);
-
   }
 }

@@ -10,7 +10,11 @@
       </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let userElement of formattedUserElements; let u = index">
+        <tr *ngFor="let userElement of formattedUserElements;
+                    let u = index;
+                    let f = first;
+                    let o= odd; let e=even;"
+                    [ngClass]="{ odd: o, even: e, first: f }">
           <td>{{u+1}}</td>
           <td>{{userElement.user}}</td>
           <td>{{userElement.totalUserPoints}}</td>
@@ -35,7 +39,10 @@
       </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let commitElement of formattedCommitElements; let c = index">
+        <tr *ngFor="let commitElement of formattedCommitElements; let c = index;
+                    let f = first;
+                    let o= odd; let e=even;"
+                    [ngClass]="{ odd: o, even: e, first: f }">
           <td>{{c+1}}</td>
           <td>{{commitElement.currentCommit.name}}</td>
           <td>{{commitElement.currentCommit.author}}</td>

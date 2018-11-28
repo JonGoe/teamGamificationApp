@@ -19,8 +19,8 @@ export class MetricService {
     }
 
     loadAvailableMetrics(): Observable<IMetric[]> {
-      return this.http.get<IAvailableMetricsGetResponse>(`${AppConfig.BASE_URL}/projects/8/metrics`)
-        .pipe(map((result: IAvailableMetricsGetResponse) => result._embedded.metricResourceList.map(metric => AppConfig.getShortNameByMetricName(metric.metricName))));
+      return this.http.get<IAvailableMetricsGetResponse>(`${AppConfig.BASE_URL}/projects/9/metrics`)
+        .pipe(map((result: IAvailableMetricsGetResponse) => result._embedded.metricResourceList.map(metric => AppConfig.getMetricByMetricName(metric.metricName))));
     }
 
     loadDeltaTree(accessToken: string, currentCommit: ICommit, previousCommit: ICommit, metricNames: string[]): Observable<INode> {
@@ -34,7 +34,7 @@ export class MetricService {
         };
 
         return this.http.post<INode>(
-          `${AppConfig.BASE_URL}/projects/8/metricvalues/deltaTree`,
+          `${AppConfig.BASE_URL}/projects/9/metricvalues/deltaTree`,
           body,
           {headers: {'Authorization': accessToken}}
         );

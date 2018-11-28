@@ -35,11 +35,12 @@ export class LeaderBoardComponent implements OnChanges{
 
   ngOnChanges() {
     this.formattedCommitElements = [];
+    console.log(Date.now()-this.activeFilter);
     this.commitElements.sort((a, b) => b.totalPoints - a.totalPoints).filter(commitElement => commitElement.currentCommit.timestamp  > Date.now()-this.activeFilter);
     console.log(this.commitElements);
     this.formattedUserElements = this.userLeaderboardElements.sort((a, b) => b.totalUserPoints - a.totalUserPoints);
 
-    for(var i=0; i<10; i++) {
+    for(var i=0; i<15; i++) {
       if(this.commitElements[i]) {
         this.formattedCommitElements.push(this.commitElements[i]);
       }

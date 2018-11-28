@@ -41,19 +41,19 @@ export class AppConfig {
         {
             shortName: 'CyclomaticComplexity',
             metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.metrics.CyclomaticComplexityCheck',
-            pointValue: 15,
+            pointValue: 10,
             shortDescription: 'Checks cyclomatic complexity against a specified limit.'
         },
         {
             shortName: 'NPathComplexity',
             metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.metrics.NPathComplexityCheck',
-            pointValue: 15,
+            pointValue: 1,
             shortDescription: 'Checks the npath complexity against a specified limit.'
         },
         {
             shortName: 'TodoComments',
             metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.TodoCommentCheck',
-            pointValue: 15,
+            pointValue: 100,
             shortDescription: 'A check for TODO comments.'
         },
         {
@@ -65,7 +65,7 @@ export class AppConfig {
         {
             shortName: 'EqualsAvoidNull',
             metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.EqualsAvoidNullCheck',
-            pointValue: 10,
+            pointValue: 50,
             shortDescription: 'Checks that any combination of String literals is on the left side of an equals() comparison.'
         },
         {
@@ -77,7 +77,7 @@ export class AppConfig {
         {
             shortName: 'HiddenField',
             metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.HiddenFieldCheck',
-            pointValue: 5,
+            pointValue: 10,
             shortDescription: 'Checks that a local variable or a parameter does not shadow a field that is defined in the same class.'
         },
         {
@@ -182,7 +182,7 @@ export class AppConfig {
     static COLOR_DELETED_FILE = '#d90206';
     static COLOR_UNCHANGED_FILE = '#cccccc';
 
-    static getShortNameByMetricName(metricName: string): IMetric {
+    static getMetricByMetricName(metricName: string): IMetric {
         return this.METRIC_NAME_MAPPING.find(namePair => namePair.metricName === metricName);
     }
 }

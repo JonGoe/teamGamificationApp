@@ -22,19 +22,17 @@
       <td>{{row.previousCommitValue}}</td>
       <td>{{row.currentCommitValue}}</td>
       <td>
-        <fa-icon *ngIf="row.difference < 0" [icon]="faCaretUp"></fa-icon>
-        <fa-icon *ngIf="row.difference > 0" [icon]="faCaretDown"></fa-icon>
+        <fa-icon *ngIf="!row.metricValueDown" [icon]="faCaretUp"></fa-icon>
+        <fa-icon *ngIf="row.metricValueDown" [icon]="faCaretDown"></fa-icon>
         {{row.difference}}
       </td>
       <td>{{row.points}}</td>
     </tr>
     <tr>
-      <td colspan="5" class="commit-points">
-        <fa-icon *ngIf="commitElement.totalPoints>0"[icon]="faPlusSquare"></fa-icon>
-        <fa-icon *ngIf="commitElement.totalPoints==0"[icon]="faSquare"></fa-icon>
+      <td colspan="5" class="commit-points" *ngIf="commitElement.totalPoints>0">
+        <fa-icon [icon]="faSquare"></fa-icon>
         {{commitElement.totalPoints}}
-        <fa-icon *ngIf="commitElement.totalPoints>0"[icon]="faPlusSquare"></fa-icon>
-        <fa-icon *ngIf="commitElement.totalPoints==0"[icon]="faSquare"></fa-icon>
+        <fa-icon [icon]="faPlusSquare"></fa-icon>
       </td>
     </tr>
     </tbody>

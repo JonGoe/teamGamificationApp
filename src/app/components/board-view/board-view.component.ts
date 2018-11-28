@@ -40,10 +40,8 @@ export class BoardViewComponent implements OnInit {
       console.log(this.commits);
       console.log(this.availableMetrics);
 
-      console.log(Date.now()-2629743000);
-      this.commits.filter(ICommit => ICommit.timestamp  > (Date.now()-15778458000));
       console.log(this.commits);
-      this.activeTimeFilterValue = 86400000;
+      this.activeTimeFilterValue = this.setActiveTimeFilter(this.commits[0].timestamp);
 
       this.ICommitElements = [];
       this.IUserLeaderboardElements = [];
@@ -89,7 +87,7 @@ export class BoardViewComponent implements OnInit {
 
           this.metricService.loadDeltaTree(loginResultAccessToken, previousCommit, currentCommit, this.metricNames).subscribe(node => {
             deltaTree = node;
-            console.log(deltaTree);
+            //console.log(deltaTree);
             tableRows = this.prepareTableData(deltaTree);
             for(var j = 0; j < tableRows.length; j++) {
               totalCommitPoints += tableRows[j].points;
@@ -142,19 +140,31 @@ export class BoardViewComponent implements OnInit {
           }
 
           let points = 0;
+          let metricValueDown = true;
           if(difference!=0) {
-            points = 10 * difference;
+            if(difference>0) {
+              points = AppConfig.getMetricByMetricName(metricName).pointValue * difference;
+              metricValueDown = true;
+            } else {
+              difference = difference * -1;
+              metricValueDown = false;
+            }
             //console.log("Points: " + points);
 
             rows.push({
-                metricName: AppConfig.getShortNameByMetricName(metricName).shortName,
+                metricName: AppConfig.getMetricByMetricName(metricName).shortName,
                 currentCommitValue: currentCommitValue || 'N/A',
                 previousCommitValue: previousCommitValue || 'N/A',
                 difference: difference,
-                points: points
+                points: points,
+                metricValueDown: metricValueDown
             });
           }
       }
       return rows;
+    }
+
+    setActiveTimeFilter(firstCommitTimestamp: number): number {
+      return 86400000;
     }
 }
