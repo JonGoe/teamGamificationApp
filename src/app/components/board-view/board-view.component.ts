@@ -4,13 +4,12 @@ import { filter, map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { MetricService } from '../../service/metric.service';
 import { SetupService } from '../../service/setup.service';
-import { IFilter } from '../../interfaces/IFilter';
 import { INode } from '../../interfaces/INode';
 import { IMetricMapping } from '../../interfaces/IMetricMapping';
 import { ICommit } from '../../interfaces/ICommit';
 import { IMetric } from '../../interfaces/IMetric';
 import { ICommitElement } from '../../interfaces/ICommitElement';
-import { IUserLeaderboardElement } from '../../interfaces/IUserLeaderboardElement';
+import { IUserElement } from '../../interfaces/IUserElement';
 import { ITimeFilterElement } from '../../interfaces/ITimeFilterElement';
 import { ITableRow } from '../../interfaces/ITableRow';
 import { TimeFilter } from '../../enum/TimeFilter';
@@ -27,7 +26,7 @@ export class BoardViewComponent implements OnInit {
     @Input() availableMetrics: IMetric[];
 
     ICommitElements: ICommitElement[];
-    IUserLeaderboardElements: IUserLeaderboardElement[];
+    IUserElements: IUserElement[];
 
     activeTimeFilterValue: number;
 
@@ -37,14 +36,15 @@ export class BoardViewComponent implements OnInit {
     constructor(public metricService: MetricService, public setupService: SetupService) {}
 
     ngOnInit() {
+      console.log("Geladene Commits");
       console.log(this.commits);
+      console.log("Geladene Metriken");
       console.log(this.availableMetrics);
 
-      console.log(this.commits);
       this.activeTimeFilterValue = this.setActiveTimeFilter(this.commits[0].timestamp);
 
       this.ICommitElements = [];
-      this.IUserLeaderboardElements = [];
+      this.IUserElements = [];
 
       this.authors = Array.from(new Set(this.commits.map(commit => commit.author)));
 
@@ -59,12 +59,9 @@ export class BoardViewComponent implements OnInit {
           let bestCommitName = this.commits[0].name;
           let bestCommitDate = new Date(this.commits[0].timestamp).toLocaleDateString();
           let singleUserHighscore = 0;
-          this.IUserLeaderboardElements.push({
+          this.IUserElements.push({
             user: authorName,
-            totalUserPoints: totalUserHighscore,
-            bestCommitName: bestCommitName,
-            bestCommitDate: bestCommitDate,
-            bestCommitPoints: singleUserHighscore,
+            commitsPerUser: []
           });
         }
 
@@ -74,16 +71,18 @@ export class BoardViewComponent implements OnInit {
           let totalCommitPoints = 0;
 
           let currentCommit = this.commits[i];
-          //console.log("------------------------------");
-          //console.log(i);
-          //console.log(currentCommit);
 
           let previousCommit = this.commits[i+1];
           //console.log(previousCommit);
 
+          /**console.log("------------------------------");
+          console.log(this.commits.length-i);
+          console.log(new Date(currentCommit.timestamp).toLocaleDateString());
+          console.log(new Date(previousCommit.timestamp).toLocaleDateString());**/
+
           let commitDate = new Date(currentCommit.timestamp).toLocaleDateString();
 
-          let currentUserKey = this.IUserLeaderboardElements.findIndex(i => i.user === currentCommit.author);
+          let currentUserKey = this.IUserElements.findIndex(i => i.user === currentCommit.author);
 
           this.metricService.loadDeltaTree(loginResultAccessToken, previousCommit, currentCommit, this.metricNames).subscribe(node => {
             deltaTree = node;
@@ -101,16 +100,15 @@ export class BoardViewComponent implements OnInit {
               tableRows: tableRows
             });
 
-            if(totalCommitPoints > this.IUserLeaderboardElements[currentUserKey].bestCommitPoints) {
-              this.IUserLeaderboardElements[currentUserKey].bestCommitName = currentCommit.name;
-              this.IUserLeaderboardElements[currentUserKey].bestCommitDate = commitDate;
-              this.IUserLeaderboardElements[currentUserKey].bestCommitPoints= totalCommitPoints;
-            }
-            this.IUserLeaderboardElements[currentUserKey].totalUserPoints += totalCommitPoints;
+            this.IUserElements[currentUserKey].commitsPerUser.push({
+               currentCommit: currentCommit,
+               previousCommit: previousCommit,
+               date: commitDate,
+               totalPoints: totalCommitPoints,
+               tableRows: tableRows
+            });
 
             this.ICommitElements.sort((a, b) => b.currentCommit.timestamp - a.currentCommit.timestamp);
-            this.IUserLeaderboardElements.sort((a, b) => b.totalUserPoints - a.totalUserPoints);
-            //console.log(this.IUserLeaderboardElements);
           });
         }
       });
@@ -121,16 +119,17 @@ export class BoardViewComponent implements OnInit {
       for (const key of Object.keys(this.availableMetrics)) {
           const metricName = this.availableMetrics[key].metricName;
           //console.log("Metricname: " + metricName);
-          let currentCommitValue;
-          if (foundElement.commit1Metrics && foundElement.commit1Metrics[metricName]) {
-              currentCommitValue = foundElement.commit1Metrics[metricName];
-              //console.log("Current Value: " + currentCommitValue);
-          }
 
           let previousCommitValue;
-          if (foundElement.commit2Metrics && foundElement.commit2Metrics[metricName]) {
-              previousCommitValue = foundElement.commit2Metrics[metricName];
+          if (foundElement.commit1Metrics && foundElement.commit1Metrics[metricName]) {
+              previousCommitValue = foundElement.commit1Metrics[metricName];
               //console.log("Previous Value: " + previousCommitValue);
+          }
+
+          let currentCommitValue;
+          if (foundElement.commit2Metrics && foundElement.commit2Metrics[metricName]) {
+              currentCommitValue = foundElement.commit2Metrics[metricName];
+              //console.log("Current Value: " + currentCommitValue);
           }
 
           let difference = 0;
@@ -165,6 +164,21 @@ export class BoardViewComponent implements OnInit {
     }
 
     setActiveTimeFilter(firstCommitTimestamp: number): number {
-      return 86400000;
+      console.log(new Date(firstCommitTimestamp).toLocaleDateString());
+      if(firstCommitTimestamp > (Date.now()-86400000)) {
+        return 86400000;
+      } else if(firstCommitTimestamp > (Date.now()-259200000)) {
+        return 259200000;
+      } else if(firstCommitTimestamp > (Date.now()-604800000)) {
+        return 604800000;
+      } else if(firstCommitTimestamp > (Date.now()-1209600000)) {
+        return 1209600000;
+      } else if(firstCommitTimestamp > (Date.now()-1814400000)) {
+        return 1814400000;
+      } else if(firstCommitTimestamp > (Date.now()-2629743000)) {
+        return 2629743000;
+      } else {
+        return 15778458000;
+      }
     }
 }

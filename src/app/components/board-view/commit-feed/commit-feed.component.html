@@ -1,5 +1,5 @@
 <div id="commit-feed">
-  <table *ngFor="let commitElement of commitElements" class="commit-feed-element" class="table table-striped table-sm">
+  <table *ngFor="let commitElement of formattedCommitElements" class="commit-feed-element" class="table table-striped table-sm">
     <thead>
     <tr>
       <th colspan="5">{{commitElement.currentCommit.name}}</th>
@@ -30,7 +30,7 @@
     </tr>
     <tr>
       <td colspan="5" class="commit-points" *ngIf="commitElement.totalPoints>0">
-        <fa-icon [icon]="faSquare"></fa-icon>
+        <fa-icon [icon]="faPlusSquare"></fa-icon>
         {{commitElement.totalPoints}}
         <fa-icon [icon]="faPlusSquare"></fa-icon>
       </td>

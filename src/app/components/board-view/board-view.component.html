@@ -1,27 +1,29 @@
 <div *ngIf="ICommitElements.length == commits.length-1
-              && IUserLeaderboardElements
+              && IUserElements
               && activeTimeFilterValue;
             else loadingScreen">
   <div class="choose-time-filter">
     <input type="radio" id="radio-today" name="radio-group-screen" class="custom-control-input" [value]="86400000" [(ngModel)]="activeTimeFilterValue"/>
-    <label class="custom-control-label" for="radio-today" title="Heute">24 Stunden</label>
+    <label class="custom-control-label" for="radio-today" title="Heute">1 Tag</label>
     <input type="radio" id="radio-3-days" name="radio-group-screen" class="custom-control-input" [value]="259200000" [(ngModel)]="activeTimeFilterValue"/>
     <label class="custom-control-label" for="radio-3-days" title="Diese Woche">3 Tage</label>
     <input type="radio" id="radio-week" name="radio-group-screen" class="custom-control-input" [value]="604800000" [(ngModel)]="activeTimeFilterValue"/>
     <label class="custom-control-label" for="radio-week" title="Diese Woche">7 Tage</label>
     <input type="radio" id="radio-2-weeks" name="radio-group-screen" class="custom-control-input" [value]="1209600000" [(ngModel)]="activeTimeFilterValue" />
-    <label class="custom-control-label" for="radio-2-weeks" title="Insgesamt">2 Wochen</label>
+    <label class="custom-control-label" for="radio-2-weeks" title="Diese 2 Wochen">2 Wochen</label>
+    <input type="radio" id="radio-3-weeks" name="radio-group-screen" class="custom-control-input" [value]="1814400000" [(ngModel)]="activeTimeFilterValue"/>
+    <label class="custom-control-label" for="radio-3-weeks" title="Diese 3 Wochen">3 Wochen</label>
     <input type="radio" id="radio-month" name="radio-group-screen" class="custom-control-input" [value]="2629743000" [(ngModel)]="activeTimeFilterValue"/>
     <label class="custom-control-label" for="radio-month" title="Dieser Monat">1 Monat</label>
   </div>
 </div>
 <div class="board-container" *ngIf="ICommitElements.length > 1
-                                      && IUserLeaderboardElements
+                                      && IUserElements
                                       && activeTimeFilterValue">
   <div class="leader-board-container">
     <leader-board
       [commitElements]="ICommitElements"
-      [userLeaderboardElements]="IUserLeaderboardElements"
+      [userElements]="IUserElements"
       [activeFilter]="activeTimeFilterValue">Loading...
     </leader-board>
   </div>

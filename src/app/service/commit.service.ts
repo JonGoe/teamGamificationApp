@@ -14,8 +14,8 @@ export class CommitService {
     }
 
     loadCommits(accessToken: string): Observable<ICommit[]> {
-      console.log("--------LOADING-COMMITS---------");
-      console.log(accessToken);
+      //console.log("--------LOADING-COMMITS---------");
+      //console.log(accessToken);
       return this.http.get<ICommitsGetResponse>(
         `${AppConfig.BASE_URL}/projects/9/commits?page=0&size=999`,
         {headers: {'Authorization': accessToken}}

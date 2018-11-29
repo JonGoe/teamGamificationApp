@@ -5,7 +5,9 @@
       <tr>
         <th>#</th>
         <th>User</th>
-        <th>Score</th>
+        <th>Insgesamte Punktzahl</th>
+        <th>Commits in Zeitraum</th>
+        <th>Durchschnittliche Punktzahl</th>
         <th>Bester Commit</th>
       </tr>
       </thead>
@@ -16,8 +18,10 @@
                     let o= odd; let e=even;"
                     [ngClass]="{ odd: o, even: e, first: f }">
           <td>{{u+1}}</td>
-          <td>{{userElement.user}}</td>
+          <td>{{userElement.userData.user}}</td>
           <td>{{userElement.totalUserPoints}}</td>
+          <td>{{userElement.commitCount}}</td>
+          <td>{{userElement.averageUserPoints}}</td>
           <td>
             <tr>{{userElement.bestCommitName}}</tr>
             <tr>{{userElement.bestCommitDate}}</tr>

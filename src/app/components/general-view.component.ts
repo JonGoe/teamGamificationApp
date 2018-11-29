@@ -35,11 +35,9 @@ export class GeneralViewComponent implements OnInit {
   ngOnInit() {
     this.setupService.authorizeUser().subscribe(loginResultAccessToken => {
       this.commitService.loadCommits(loginResultAccessToken).subscribe(commits => {
-        commits
-          .filter(ICommit => ICommit.timestamp  > (Date.now()-2629743000))
-          .filter(ICommit => ICommit.analyzed == true)
-          .sort((a, b) => b.timestamp - a.timestamp);
-        this.commits = commits;
+        commits.filter(ICommit => ICommit.analyzed == true);
+        commits.filter(ICommit => new Date(ICommit.timestamp).toLocaleDateString()  > new Date((Date.now()-2629743000)).toLocaleDateString());
+        this.commits = commits.sort((a, b) => b.timestamp - a.timestamp);
       });
       this.appMetrics = Array.from(new Set(AppConfig.METRIC_NAME_MAPPING));
       //this.metricService.loadAvailableMetrics().subscribe(metrics => this.availableMetrics = metrics);
