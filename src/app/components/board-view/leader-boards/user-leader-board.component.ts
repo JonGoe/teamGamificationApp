@@ -11,7 +11,7 @@ import {faCaretDown, faCaretUp, faCaretRight, faPlusSquare, faChevronCircleRight
 @Component({
     selector: 'user-leader-board',
     templateUrl: './user-leader-board.component.html',
-    styleUrls: ['./user-leader-board.component.css']
+    styleUrls: ['./leader-board.component.css']
 })
 
 export class UserLeaderBoardComponent implements OnChanges{

@@ -12,10 +12,8 @@ import {faCaretDown, faCaretUp, faCaretRight, faPlusSquare, faChevronCircleRight
     styleUrls: ['./commit-feed.component.css']
 })
 export class CommitFeedComponent implements OnChanges{
-  commitElements: ICommitElement[] = [];
-  userElements: IUserElement[] = [];
-  activeFilter: number;
-  subscription: Subscription;
+  @Input() commitElements: ICommitElement[];
+  @Input() activeFilter: number;
 
   formattedCommitElements: ICommitElement[];
 
@@ -29,20 +27,15 @@ export class CommitFeedComponent implements OnChanges{
   faSquare = faSquare;
   faSortAmountUp = faSortAmountUp;
 
-  constructor(public elementService: ElementService) {
-  }
+  constructor() {}
 
   ngOnChanges() {
    this.formattedCommitElements = [];
-
-   this.elementService.commitElements$.subscribe(commitElementsNode => {
-    this.commitElements = commitElementsNode;
-    for(var i=0; i<this.commitElements.length; i++) {
-     if(this.commitElements[i].currentCommit.timestamp  > (Date.now()-this.activeFilter)) {
-       this.formattedCommitElements.push(this.commitElements[i]);
-       this.formattedCommitElements.sort((a, b) => b.currentCommit.timestamp - a.currentCommit.timestamp);
-     }
+   for(var i=0; i<this.commitElements.length; i++) {
+    if(this.commitElements[i].currentCommit.timestamp  > (Date.now()-this.activeFilter)) {
+      this.formattedCommitElements.push(this.commitElements[i]);
+      this.formattedCommitElements.sort((a, b) => b.currentCommit.timestamp - a.currentCommit.timestamp);
     }
-   });
+   }
   }
 }

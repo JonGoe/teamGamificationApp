@@ -11,7 +11,7 @@ import {faCaretDown, faCaretUp, faCaretRight, faPlusSquare, faChevronCircleRight
 @Component({
     selector: 'commit-leader-board',
     templateUrl: './commit-leader-board.component.html',
-    styleUrls: ['./commit-leader-board.component.css']
+    styleUrls: ['./leader-board.component.css']
 })
 
 export class CommitLeaderBoardComponent implements OnChanges{

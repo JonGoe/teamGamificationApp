@@ -20,14 +20,13 @@
 .first { background-color: green; }
 
 table {
-  width: 80%;
-  border-spacing: 0 0;
+  width: 96%;
   background: #213B4C;
   color: white;
   box-shadow: 0 0 20px #1E3344;
   overflow: hidden;
   padding: 10px;
-  margin: 50px;
+  margin: 2%;
   margin-top: 5px;
   margin-bottom: 0px;
 }

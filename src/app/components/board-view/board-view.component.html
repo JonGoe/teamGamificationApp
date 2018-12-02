@@ -1,52 +1,55 @@
 <div *ngIf="ICommitElements.length == commits.length-1
               && IUserElements
-              && activeTimeFilterValue;
+              && activeTimeFilterValue
             else loadingScreen">
   <div class="choose-time-filter">
-    <input type="radio" id="radio-today" name="radio-group-screen" class="custom-control-input" [value]="86400000" [(ngModel)]="activeTimeFilterValue"/>
+    <input type="radio" id="radio-today" name="radio-time-filter" class="custom-control-input" [value]="86400000" [(ngModel)]="activeTimeFilterValue"/>
     <label class="custom-control-label" for="radio-today" title="Heute">1 Tag</label>
-    <input type="radio" id="radio-3-days" name="radio-group-screen" class="custom-control-input" [value]="259200000" [(ngModel)]="activeTimeFilterValue"/>
-    <label class="custom-control-label" for="radio-3-days" title="Diese Woche">3 Tage</label>
-    <input type="radio" id="radio-week" name="radio-group-screen" class="custom-control-input" [value]="604800000" [(ngModel)]="activeTimeFilterValue"/>
+    <input type="radio" id="radio-3-days" name="radio-time-filter" class="custom-control-input" [value]="259200000" [(ngModel)]="activeTimeFilterValue"/>
+    <label class="custom-control-label" for="radio-3-days" title="Diese 3 Tage">3 Tage</label>
+    <input type="radio" id="radio-week" name="radio-time-filter" class="custom-control-input" [value]="604800000" [(ngModel)]="activeTimeFilterValue"/>
     <label class="custom-control-label" for="radio-week" title="Diese Woche">7 Tage</label>
-    <input type="radio" id="radio-2-weeks" name="radio-group-screen" class="custom-control-input" [value]="1209600000" [(ngModel)]="activeTimeFilterValue" />
+    <input type="radio" id="radio-2-weeks" name="radio-time-filter" class="custom-control-input" [value]="1209600000" [(ngModel)]="activeTimeFilterValue" />
     <label class="custom-control-label" for="radio-2-weeks" title="Diese 2 Wochen">2 Wochen</label>
-    <input type="radio" id="radio-3-weeks" name="radio-group-screen" class="custom-control-input" [value]="1814400000" [(ngModel)]="activeTimeFilterValue"/>
+    <input type="radio" id="radio-3-weeks" name="radio-time-filter" class="custom-control-input" [value]="1814400000" [(ngModel)]="activeTimeFilterValue"/>
     <label class="custom-control-label" for="radio-3-weeks" title="Diese 3 Wochen">3 Wochen</label>
-    <input type="radio" id="radio-month" name="radio-group-screen" class="custom-control-input" [value]="2629743000" [(ngModel)]="activeTimeFilterValue"/>
+    <input type="radio" id="radio-month" name="radio-time-filter" class="custom-control-input" [value]="2629743000" [(ngModel)]="activeTimeFilterValue"/>
     <label class="custom-control-label" for="radio-month" title="Dieser Monat">1 Monat</label>
+  </div>
+  <div class="choose-board">
+    <input type="radio" id="radio-commit-feed" name="radio-board" class="custom-control-input-2" [value]="'selectCommitFeed'" [(ngModel)]="selectedBoard"/>
+    <label class="custom-control-label" for="radio-commit-feed" title="Alle Commits">Alle Commits</label>
+    <input type="radio" id="radio-commit-leaderboard" name="radio-board" class="custom-control-input-2" [value]="'selectCommitLeaderboard'" [(ngModel)]="selectedBoard"/>
+    <label class="custom-control-label" for="radio-commit-leaderboard" title="Beste Commits">Beste Commits</label>
+    <input type="radio" id="radio-user-leaderboard" name="radio-board" class="custom-control-input-2" [value]="'selectUserLeaderboard'" [(ngModel)]="selectedBoard"/>
+    <label class="custom-control-label" for="radio-user-leaderboard" title="Beste User">Beste User</label>
   </div>
 </div>
 <div class="board-container" *ngIf="ICommitElements.length > 1
                                       && IUserElements
-                                      && activeTimeFilterValue">
-  <nav>
-    <a routerLink="/commit-feed" routerLinkActive="active">Alle Commits</a>
-    <a routerLink="/commit-leader-board" routerLinkActive="active">Beste Commits</a>
-    <a routerLink="/user-leader-board" routerLinkActive="active">Beste User</a>
-  </nav>
-  <router-outlet></router-outlet>
-  <!--<div class="leader-board-container">
+                                      && activeTimeFilterValue
+                                      && selectedBoard">
+  <div class="user-leader-board-container" *ngIf="selectedBoard == 'selectUserLeaderboard' ">
     <user-leader-board
       [userElements]="IUserElements"
       [commitElements]="ICommitElements"
       [activeFilter]="activeTimeFilterValue">Loading...
     </user-leader-board>
+  </div>
+  <div class="commit-leader-board-container" *ngIf="selectedBoard == 'selectCommitLeaderboard' ">
     <commit-leader-board
       [userElements]="IUserElements"
       [commitElements]="ICommitElements"
       [activeFilter]="activeTimeFilterValue">Loading...
     </commit-leader-board>
   </div>
-  <div class="commit-feed-container">
+  <div class="commit-feed-container" *ngIf="selectedBoard == 'selectCommitFeed' ">
     <commit-feed
-      [userElements]="IUserElements"
       [commitElements]="ICommitElements"
       [activeFilter]="activeTimeFilterValue">Loading...
     </commit-feed>
-  </div>-->
+  </div>
 </div>
-
 <ng-template #loadingScreen>
   <loading-screen
     [loadingIterator]="ICommitElements.length"

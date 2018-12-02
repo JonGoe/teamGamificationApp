@@ -1,10 +1,10 @@
 #commit-feed {
   .display: block;
   text-align: center;
-  margin: 1%;
-  max-height: 80%;
-  max-width: 90%;
-  height: 940px;
+  margin: 2%;
+  margin-top: 5px;
+  max-height: 50%;
+  height: 400px;
   padding: 10px;
   border-spacing: 10 10;
   background: #0C1E28;

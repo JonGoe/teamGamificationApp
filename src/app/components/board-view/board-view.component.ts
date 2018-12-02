@@ -4,7 +4,6 @@ import { filter, map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { MetricService } from '../../service/metric.service';
 import { SetupService } from '../../service/setup.service';
-import { ElementService } from '../../service/element.service';
 import { INode } from '../../interfaces/INode';
 import { IMetricMapping } from '../../interfaces/IMetricMapping';
 import { ICommit } from '../../interfaces/ICommit';
@@ -21,7 +20,7 @@ import { AppConfig } from '../../AppConfig';
     templateUrl: './board-view.component.html',
     styleUrls: ['./board-view.component.css']
 })
-export class BoardViewComponent implements OnInit {
+export class BoardViewComponent implements OnInit, OnChanges {
 
     @Input() commits: ICommit[];
     @Input() availableMetrics: IMetric[];
@@ -30,11 +29,12 @@ export class BoardViewComponent implements OnInit {
     IUserElements: IUserElement[];
 
     activeTimeFilterValue: number;
+    selectedBoard: string;
 
     metricNames: string[];
     authors: string[];
 
-    constructor(public metricService: MetricService, public setupService: SetupService, public elementService: ElementService) {}
+    constructor(public metricService: MetricService, public setupService: SetupService) {}
 
     ngOnInit() {
       console.log("Geladene Commits");
@@ -43,6 +43,7 @@ export class BoardViewComponent implements OnInit {
       console.log(this.availableMetrics);
 
       this.activeTimeFilterValue = this.setActiveTimeFilter(this.commits[0].timestamp);
+      this.selectedBoard = "";
 
       this.ICommitElements = [];
       this.IUserElements = [];
@@ -110,8 +111,6 @@ export class BoardViewComponent implements OnInit {
             });
 
             this.ICommitElements.sort((a, b) => b.currentCommit.timestamp - a.currentCommit.timestamp);
-
-            this.elementService.saveElements(this.IUserElements, this.ICommitElements);
           });
         }
       });
@@ -184,4 +183,12 @@ export class BoardViewComponent implements OnInit {
         return 15778458000;
       }
     }
+
+    ngOnChanges() {
+      if(this.selectedBoard){
+        console.log("000000000000000000000000000000000000000");
+        console.log(this.selectedBoard);
+      }
+    }
+
 }
