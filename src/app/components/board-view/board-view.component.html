@@ -20,19 +20,31 @@
 <div class="board-container" *ngIf="ICommitElements.length > 1
                                       && IUserElements
                                       && activeTimeFilterValue">
-  <div class="leader-board-container">
-    <leader-board
-      [commitElements]="ICommitElements"
+  <nav>
+    <a routerLink="/commit-feed" routerLinkActive="active">Alle Commits</a>
+    <a routerLink="/commit-leader-board" routerLinkActive="active">Beste Commits</a>
+    <a routerLink="/user-leader-board" routerLinkActive="active">Beste User</a>
+  </nav>
+  <router-outlet></router-outlet>
+  <!--<div class="leader-board-container">
+    <user-leader-board
       [userElements]="IUserElements"
+      [commitElements]="ICommitElements"
       [activeFilter]="activeTimeFilterValue">Loading...
-    </leader-board>
+    </user-leader-board>
+    <commit-leader-board
+      [userElements]="IUserElements"
+      [commitElements]="ICommitElements"
+      [activeFilter]="activeTimeFilterValue">Loading...
+    </commit-leader-board>
   </div>
   <div class="commit-feed-container">
     <commit-feed
+      [userElements]="IUserElements"
       [commitElements]="ICommitElements"
       [activeFilter]="activeTimeFilterValue">Loading...
     </commit-feed>
-  </div>
+  </div>-->
 </div>
 
 <ng-template #loadingScreen>

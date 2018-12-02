@@ -9,39 +9,22 @@ import { ICommitElement } from '../../../interfaces/ICommitElement';
 import {faCaretDown, faCaretUp, faCaretRight, faPlusSquare, faChevronCircleRight, faJedi, faUser, faCalendarAlt, faSquare, faSortAmountUp} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-    selector: 'leader-board',
-    templateUrl: './leader-board.component.html',
-    styleUrls: ['./leader-board.component.css']
+    selector: 'user-leader-board',
+    templateUrl: './user-leader-board.component.html',
+    styleUrls: ['./user-leader-board.component.css']
 })
 
-export class LeaderBoardComponent implements OnChanges{
+export class UserLeaderBoardComponent implements OnChanges{
   @Input() commitElements: ICommitElement[];
   @Input() userElements: IUserElement[];
   @Input() activeFilter: number;
 
-  formattedCommitElements: ICommitElement[];
   formattedUserElements: IUserLeaderboardElement[];
-
-  faCaretDown = faCaretDown;
-  faCaretUp = faCaretUp;
-  faPlusSquare = faPlusSquare;
-  faChevronCircleRight = faChevronCircleRight;
-  faJedi = faJedi;
-  faUser = faUser;
-  faCalendarAlt = faCalendarAlt;
-  faSquare = faSquare;
-  faSortAmountUp = faSortAmountUp;
 
   constructor() {}
 
   ngOnChanges() {
-    this.formattedCommitElements = [];
     this.formattedUserElements = [];
-    this.commitElements.sort((a, b) => b.totalPoints - a.totalPoints);
-
-    console.log(this.activeFilter);
-
-
 
     for(var i=0; i<this.userElements.length; i++) {
       let totalPointsPerUser = 0;
@@ -80,14 +63,6 @@ export class LeaderBoardComponent implements OnChanges{
         bestCommitPoints: bestCommitPoints
       });
       this.formattedUserElements = this.formattedUserElements.sort((a, b) => b.averageUserPoints - a.averageUserPoints);
-    }
-
-    for(var i=0; i<15; i++) {
-      if(this.commitElements[i]) {
-        if(this.commitElements[i].currentCommit.timestamp > (Date.now()-this.activeFilter)) {
-          this.formattedCommitElements.push(this.commitElements[i]);
-        }
-      }
     }
   }
 }

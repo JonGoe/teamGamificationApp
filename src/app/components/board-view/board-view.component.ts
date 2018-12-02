@@ -4,6 +4,7 @@ import { filter, map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { MetricService } from '../../service/metric.service';
 import { SetupService } from '../../service/setup.service';
+import { ElementService } from '../../service/element.service';
 import { INode } from '../../interfaces/INode';
 import { IMetricMapping } from '../../interfaces/IMetricMapping';
 import { ICommit } from '../../interfaces/ICommit';
@@ -33,7 +34,7 @@ export class BoardViewComponent implements OnInit {
     metricNames: string[];
     authors: string[];
 
-    constructor(public metricService: MetricService, public setupService: SetupService) {}
+    constructor(public metricService: MetricService, public setupService: SetupService, public elementService: ElementService) {}
 
     ngOnInit() {
       console.log("Geladene Commits");
@@ -109,6 +110,8 @@ export class BoardViewComponent implements OnInit {
             });
 
             this.ICommitElements.sort((a, b) => b.currentCommit.timestamp - a.currentCommit.timestamp);
+
+            this.elementService.saveElements(this.IUserElements, this.ICommitElements);
           });
         }
       });
