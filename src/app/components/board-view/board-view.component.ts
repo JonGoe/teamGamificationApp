@@ -70,7 +70,7 @@ export class BoardViewComponent implements OnInit, OnChanges {
         for (var i = 0; i < this.commits.length-1; i++) {
           let deltaTree: INode;
           let tableRows: ITableRow[] = [];
-          let totalCommitPoints = 0;
+          let totalCommitPoints = 20;
 
           let currentCommit = this.commits[i];
 
@@ -147,6 +147,7 @@ export class BoardViewComponent implements OnInit, OnChanges {
               points = AppConfig.getMetricByMetricName(metricName).pointValue * difference;
               metricValueDown = true;
             } else {
+              points = -1 * difference;
               difference = difference * -1;
               metricValueDown = false;
             }
