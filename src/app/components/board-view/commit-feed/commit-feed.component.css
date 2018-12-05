@@ -4,7 +4,7 @@
   margin: 2%;
   margin-top: 5px;
   max-height: 50%;
-  height: 400px;
+  height: 500px;
   padding: 10px;
   border-spacing: 10 10;
   background: #0C1E28;
@@ -55,7 +55,7 @@ thead {
   padding: 10px 10px 10px 10px;
   text-align: center;
   background: green;
-  font-size: 20px;
+  font-size: 24px;
 }
 
 fa-icon {
