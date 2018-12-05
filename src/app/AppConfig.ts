@@ -1,6 +1,7 @@
 import { environment } from '../environments/environment';
 import { IMetric } from './interfaces/IMetric';
 import { ITimeFilterElement } from './interfaces/ITimeFilterElement';
+import { IUserInfo } from './interfaces/IUserInfo';
 
 export class AppConfig {
     // CODERADAR SERVER CONFIG
@@ -35,6 +36,34 @@ export class AppConfig {
         timestampValue: 15778458000,
       },
     ];
+
+    static USER_NAME_MAPPING: IUserInfo[] = [
+      {
+        personName: 'Maxim Atanasov',
+        githubName: 'maximAtanasov'
+      },
+      {
+        personName: 'Leonie Adis',
+        githubName: 'adis'
+      },
+      {
+        personName: 'Leonie Adis',
+        githubName: 'LeonieAdis'
+      },
+      {
+        personName: 'Krause',
+        githubName: 'KilianKrause'
+      },
+      {
+        personName: 'Kilian Krause',
+        githubName: 'Krause'
+      },
+      {
+        personName: 'Kilian Krause',
+        githubName: 'KilianKrause'
+      }
+    ];
+
 
     // METRIC NAME MAPPING
     static METRIC_NAME_MAPPING: IMetric[] = [
@@ -366,5 +395,24 @@ export class AppConfig {
 
     static getMetricByMetricName(metricName: string): IMetric {
         return this.METRIC_NAME_MAPPING.find(namePair => namePair.metricName === metricName);
+    }
+
+    static getGithubName(commitAuthor: string): string {
+        let githubUser = this.USER_NAME_MAPPING.find(namePair => namePair.personName === commitAuthor);
+        if(githubUser) {
+          console.log(githubUser.githubName);
+          return githubUser.githubName;
+        } else {
+          console.log(commitAuthor);
+          return commitAuthor;
+        }
+    }
+    static getPersonName(commitAuthor: string): string {
+        let person = this.USER_NAME_MAPPING.find(namePair => namePair.githubName === commitAuthor);
+        if(person) {
+          return person.personName;
+        } else {
+          return commitAuthor;
+        }
     }
 }

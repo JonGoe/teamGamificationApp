@@ -48,7 +48,7 @@ export class BoardViewComponent implements OnInit, OnChanges {
       this.ICommitElements = [];
       this.IUserElements = [];
 
-      this.authors = Array.from(new Set(this.commits.map(commit => commit.author)));
+      this.authors = Array.from(new Set(this.commits.map(commit => AppConfig.getPersonName(commit.author))));
 
       this.metricNames = this.availableMetrics.map(metric => metric.metricName);
 
@@ -84,7 +84,7 @@ export class BoardViewComponent implements OnInit, OnChanges {
 
           let commitDate = new Date(currentCommit.timestamp).toLocaleDateString();
 
-          let currentUserKey = this.IUserElements.findIndex(i => i.user === currentCommit.author);
+          let currentUserKey = this.IUserElements.findIndex(i => i.user === AppConfig.getPersonName(currentCommit.author));
 
           this.metricService.loadDeltaTree(loginResultAccessToken, previousCommit, currentCommit, this.metricNames).subscribe(node => {
             deltaTree = node;
