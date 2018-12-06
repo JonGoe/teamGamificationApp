@@ -2,9 +2,9 @@
   .display: block;
   text-align: center;
   margin: 1%;
-  max-height: 80%;
   max-width: 90%;
-  height: 940px;
+  max-height: 50%;
+  height: 500px;
   padding: 10px;
   border-spacing: 10 10;
   background: #0C1E28;

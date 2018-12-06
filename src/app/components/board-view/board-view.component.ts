@@ -147,7 +147,6 @@ export class BoardViewComponent implements OnInit, OnChanges {
               points = AppConfig.getMetricByMetricName(metricName).pointValue * difference;
               metricValueDown = true;
             } else {
-              points = -1 * difference;
               difference = difference * -1;
               metricValueDown = false;
             }

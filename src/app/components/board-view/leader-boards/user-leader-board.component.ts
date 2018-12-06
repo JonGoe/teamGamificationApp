@@ -51,16 +51,17 @@ export class UserLeaderBoardComponent implements OnChanges{
           }
         }
       }
-
-      this.formattedUserElements.push({
-        userData: this.userElements[i],
-        totalUserPoints: totalPointsPerUser,
-        averageUserPoints: averagePointsPerUser,
-        commitCount: commitsInTimeframe,
-        bestCommitName: bestCommitName,
-        bestCommitDate: bestCommitDate,
-        bestCommitPoints: bestCommitPoints
-      });
+      if(totalPointsPerUser) {
+        this.formattedUserElements.push({
+          userData: this.userElements[i],
+          totalUserPoints: totalPointsPerUser,
+          averageUserPoints: averagePointsPerUser,
+          commitCount: commitsInTimeframe,
+          bestCommitName: bestCommitName,
+          bestCommitDate: bestCommitDate,
+          bestCommitPoints: bestCommitPoints
+        });
+      }
       this.formattedUserElements = this.formattedUserElements.sort((a, b) => b.averageUserPoints - a.averageUserPoints);
     }
   }
