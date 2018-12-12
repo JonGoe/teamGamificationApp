@@ -149,6 +149,9 @@ export class BoardViewComponent implements OnInit, OnChanges {
             } else {
               difference = difference * -1;
               metricValueDown = false;
+              if(metricName == 'coderadar:size:sloc:java') {
+                points = AppConfig.getMetricByMetricName(metricName).pointValue * difference;
+              }
             }
             //console.log("Points: " + points);
 
@@ -157,7 +160,7 @@ export class BoardViewComponent implements OnInit, OnChanges {
                 currentCommitValue: currentCommitValue || 'N/A',
                 previousCommitValue: previousCommitValue || 'N/A',
                 difference: difference,
-                points: points,
+                points: Math.round(points),
                 metricValueDown: metricValueDown
             });
           }

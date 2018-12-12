@@ -68,6 +68,12 @@ export class AppConfig {
     // METRIC NAME MAPPING
     static METRIC_NAME_MAPPING: IMetric[] = [
         {
+            shortName: 'Source Lines of Code (SLOC)',
+            metricName: 'coderadar:size:sloc:java',
+            pointValue: 0.1,
+            shortDescription: 'Source Lines of Code.'
+        },
+        {
             shortName: 'ArrayTypeStyle',
             metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.ArrayTypeStyleCheck',
             pointValue: 5,
@@ -88,25 +94,13 @@ export class AppConfig {
         {
             shortName: 'UncommentedMains',
             metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.UncommentedMainCheck',
-            pointValue: 5,
+            pointValue: 10,
             shortDescription: 'Detects uncommented main methods.'
-        },
-        {
-            shortName: 'UpperEll',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.UpperEllCheck',
-            pointValue: 5,
-            shortDescription: 'Checks that long constants are defined with an upper ell.'
-        },
-        {
-            shortName: 'AnnotationLocation',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.annotation.AnnotationLocationCheck',
-            pointValue: 5,
-            shortDescription: 'Check location of annotation on language elements.'
         },
         {
             shortName: 'MissingOverride',
             metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.annotation.MissingOverrideCheck',
-            pointValue: 5,
+            pointValue: 15,
             shortDescription: 'Verifies that the Override annotation is present when the inheritDoc javadoc tag is present. '
         },
         {
@@ -122,24 +116,6 @@ export class AppConfig {
             shortDescription: 'Checks for empty catch blocks. '
         },
         {
-            shortName: 'LeftCurly',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck',
-            pointValue: 3,
-            shortDescription: 'Checks the placement of left curly braces. '
-        },
-        {
-            shortName: 'NeedBraces',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.blocks.NeedBracesCheck',
-            pointValue: 3,
-            shortDescription: 'Checks for braces around code blocks. '
-        },
-        {
-            shortName: 'RightCurly',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.blocks.RightCurlyCheck',
-            pointValue: 3,
-            shortDescription: 'Checks the placement of right curly braces. '
-        },
-        {
             shortName: 'AvoidInlineConditionals',
             metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.AvoidInlineConditionalsCheck',
             pointValue: 5,
@@ -152,22 +128,10 @@ export class AppConfig {
             shortDescription: 'Checks that if a class defines a covariant method equals, then it defines method equals(java.lang.Object). '
         },
         {
-            shortName: 'DeclarationOrder',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.DeclarationOrderCheck',
-            pointValue: 5,
-            shortDescription: 'Checks that the parts of a class or interface declaration appear in the order suggested by the Code Conventions for the Java Programming Language. '
-        },
-        {
             shortName: 'DefaultComesLast',
             metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.DefaultComesLastCheck',
             pointValue: 5,
             shortDescription: 'Check that the default is after all the cases in a switch statement.'
-        },
-        {
-            shortName: 'EmptyStatement',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.EmptyStatementCheck',
-            pointValue: 3,
-            shortDescription: 'Detects empty statements (standalone ;).  '
         },
         {
             shortName: 'EqualsAvoidNull',
@@ -190,7 +154,7 @@ export class AppConfig {
         {
             shortName: 'FinalLocalVariable',
             metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.FinalLocalVariableCheck',
-            pointValue: 5,
+            pointValue: 3,
             shortDescription: 'Ensures that local variables that never get their values changed, must be declared final.'
         },
         {
@@ -220,13 +184,13 @@ export class AppConfig {
         {
             shortName: 'MissingSwitchDefault',
             metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.MissingSwitchDefaultCheck',
-            pointValue: 5,
+            pointValue: 15,
             shortDescription: 'Checks that switch statement has "default" clause.'
         },
         {
             shortName: 'MultipleStringLiterals',
             metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.MultipleStringLiteralsCheck',
-            pointValue: 5,
+            pointValue: 15,
             shortDescription: 'Checks for multiple occurrences of the same string literal within a single file.'
         },
         {
@@ -248,22 +212,10 @@ export class AppConfig {
             shortDescription: 'Restricts nested if-else blocks to a specified depth (default = 1).'
         },
         {
-            shortName: 'NestedTryDepth',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.NestedTryDepthCheck',
-            pointValue: 5,
-            shortDescription: 'Restricts nested try-catch-finally blocks to a specified depth (default = 1). '
-        },
-        {
             shortName: 'OneStatementPerLine',
             metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.OneStatementPerLineCheck',
             pointValue: 5,
             shortDescription: 'Restricts the number of statements per line to one. '
-        },
-        {
-            shortName: 'OverloadMethodsDeclarationOrder',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.OverloadMethodsDeclarationOrderCheck',
-            pointValue: 5,
-            shortDescription: 'Checks that overload methods are grouped together.'
         },
         {
             shortName: 'ReturnCount',
@@ -284,24 +236,6 @@ export class AppConfig {
             shortDescription: 'Checks for overly complicated boolean return statements. '
         },
         {
-            shortName: 'VariableDeclarationUsageDistance',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.VariableDeclarationUsageDistanceCheck',
-            pointValue: 5,
-            shortDescription: 'Checks the distance between declaration of variable and its first usage.'
-        },
-        {
-            shortName: 'DesignForExtension',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.design.DesignForExtensionCheck',
-            pointValue: 5,
-            shortDescription: 'The check finds classes that are designed for extension (subclass creation).'
-        },
-        {
-            shortName: 'HideUtilityClassConstructor',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.design.HideUtilityClassConstructorCheck',
-            pointValue: 5,
-            shortDescription: 'Make sure that utility classes (classes that contain only static methods) do not have a public constructor.'
-        },
-        {
             shortName: 'OneTopLevelClass',
             metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.design.OneTopLevelClassCheck',
             pointValue: 5,
@@ -314,40 +248,16 @@ export class AppConfig {
             shortDescription: 'Checks visibility of class members. '
         },
         {
-            shortName: 'AvoidStarImport',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck',
-            pointValue: 5,
-            shortDescription: 'Check that finds import statements that use the * notation.'
-        },
-        {
             shortName: 'AvoidStaticImport',
             metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.imports.AvoidStaticImportCheck',
             pointValue: 5,
             shortDescription: 'Check that finds static imports.'
         },
         {
-            shortName: 'RedundantImports',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.imports.RedundantImportCheck',
-            pointValue: 5,
-            shortDescription: 'Checks for imports that are redundant. '
-        },
-        {
             shortName: 'UnusedImports',
             metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.imports.UnusedImportsCheck',
             pointValue: 5,
             shortDescription: 'Checks for unused import statements.'
-        },
-        {
-            shortName: 'Indentation',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck',
-            pointValue: 5,
-            shortDescription: 'Checks the style of array type definitions.'
-        },
-        {
-            shortName: 'CommentsIndentation',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.indentation.CommentsIndentationCheck',
-            pointValue: 5,
-            shortDescription: 'Checks the style of array type definitions.'
         },
         {
             shortName: 'BooleanExpressionComplexity',
@@ -368,12 +278,6 @@ export class AppConfig {
             shortDescription: 'Checks for redundant modifiers in interface and annotation definitions.'
         },
         {
-            shortName: 'AbbreviationAsWordInName',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck',
-            pointValue: 5,
-            shortDescription: 'The Check validate abbreviations(consecutive capital letters) length in identifier name, it also allow in enforce camel case naming.'
-        },
-        {
             shortName: 'AbstractClassName',
             metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.naming.AbstractClassNameCheck',
             pointValue: 5,
@@ -384,12 +288,6 @@ export class AppConfig {
             metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.sizes.ExecutableStatementCountCheck',
             pointValue: 1,
             shortDescription: 'Restricts the number of executable statements to a specified limit (default = 30).'
-        },
-        {
-            shortName: 'GenericWhitespace',
-            metricName: 'checkstyle:com.puppycrawl.tools.checkstyle.checks.whitespace.GenericWhitespaceCheck',
-            pointValue: 1,
-            shortDescription: 'Checks that the whitespace around the Generic tokens are correct to the typical convention.'
         },
     ];
 
