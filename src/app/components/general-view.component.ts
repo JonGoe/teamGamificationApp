@@ -5,7 +5,6 @@ import { Store } from '@ngrx/store';
 import { MetricService } from '../service/metric.service';
 import { CommitService } from '../service/commit.service';
 import { SetupService } from '../service/setup.service';
-import { IMetricMapping } from '../interfaces/IMetricMapping';
 import { IMetric } from '../interfaces/IMetric';
 import { ICommit } from '../interfaces/ICommit';
 import { INode } from '../interfaces/INode';

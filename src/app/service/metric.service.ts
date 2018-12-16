@@ -1,10 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Subject, Observable} from 'rxjs';
-import {IDeltaTreeGetResponse} from '../interfaces/IDeltaTreeGetResponse';
 import {ICommit} from '../interfaces/ICommit';
 import {INode} from '../interfaces/INode';
-import {IMetricMapping} from '../interfaces/IMetricMapping';
 import {IMetric} from '../interfaces/IMetric';
 import {AppConfig} from '../AppConfig';
 import {delay, map, mergeMap} from 'rxjs/operators';
