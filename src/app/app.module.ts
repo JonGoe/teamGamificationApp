@@ -4,11 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { StoreModule } from '@ngrx/store';
-import { RouterModule, Routes } from '@angular/router';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { MatCardModule, MatIconModule, MatToolbarModule, MatButtonModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppComponent } from './app.component';
 import { ViewModule } from './components/general-view.module';
@@ -30,11 +26,9 @@ import { environment } from '../environments/environment';
         FormsModule,
         ReactiveFormsModule,
         HttpModule,
-        RouterModule,
         FontAwesomeModule,
         FlexLayoutModule,
-        ViewModule,
-        environment.production ? [] : StoreDevtoolsModule.instrument({ maxAge: 50 })
+        ViewModule
     ],
     providers: [
         CommitService,

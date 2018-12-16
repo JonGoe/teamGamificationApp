@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import {catchError, map, switchMap, mergeMap} from 'rxjs/operators';
-import { Store } from '@ngrx/store';
 import { MetricService } from '../service/metric.service';
 import { CommitService } from '../service/commit.service';
 import { SetupService } from '../service/setup.service';

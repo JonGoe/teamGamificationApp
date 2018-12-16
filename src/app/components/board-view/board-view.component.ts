@@ -1,7 +1,6 @@
 import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { Observable} from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
 import { MetricService } from '../../service/metric.service';
 import { SetupService } from '../../service/setup.service';
 import { INode } from '../../interfaces/INode';
