@@ -37,7 +37,7 @@ export class GeneralViewComponent implements OnInit {
         commits.filter(ICommit => new Date(ICommit.timestamp).toLocaleDateString()  > new Date((Date.now()-2629743000)).toLocaleDateString());
         this.commits = commits.sort((a, b) => b.timestamp - a.timestamp);
       });
-      this.appMetrics = Array.from(new Set(AppConfig.METRIC_NAME_MAPPING));
+      this.appMetrics = Array.from(new Set(AppConfig.METRICS));
       //this.metricService.loadAvailableMetrics().subscribe(metrics => this.availableMetrics = metrics);
     });
   }

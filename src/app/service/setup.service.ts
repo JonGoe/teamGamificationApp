@@ -17,11 +17,6 @@ export class SetupService {
       var accessToken: string;
       this.authorizeUser().subscribe(loginResult => {
         accessToken = loginResult;
-        //console.log(accessToken);
-        /**this.createProject(accessToken);
-        this.addFilePattern(accessToken);
-        this.addAnalyzerConfig(accessToken);
-        this.addAnalyzingStrategy(accessToken);**/
       });
       return true;
     }
@@ -44,80 +39,5 @@ export class SetupService {
               "password" : AppConfig.PASSWORD
           },
       ).pipe(map((result: IAccessTokenPostResponse) => result.accessToken));
-    }
-
-    createProject(accessToken: string) {
-      console.log('creating project...');
-      return this.http.post(`${AppConfig.BASE_URL}/projects`,
-          {
-            "name" : "budgeteer",
-            "vcsUrl" : "https://github.com/adessoAG/budgeteer.git",
-            "startDate" : [ 2018, 10, 1 ],
-            "endDate" : [ ],
-          },
-          {
-              headers: {'Authorization': accessToken}
-          }
-      );
-    }
-
-    addFilePattern(accessToken: string) {
-      console.log('adding file pattern...');
-      return this.http.post(`${AppConfig.BASE_URL}/projects/8/files`,
-          {
-            "filePatterns" : [ {
-              "pattern" : "budgeteer-web-interface/src/main/java/**/*.java",
-              "inclusionType" : "INCLUDE",
-              "fileSetType" : "SOURCE"
-            },
-            {
-              "pattern": "budgeteer-web-interface/src/main/java/src/main/java/**/*.html",
-              "inclusionType": "INCLUDE",
-              "fileSetType": "SOURCE"
-            } ]
-          },
-          {
-              headers: {'Authorization': accessToken}
-          }
-      );
-    }
-
-    addAnalyzerConfig(accessToken: string) {
-      console.log('adding analyzing configs...');
-
-      var enabledAnalyzerPlugins = [
-          'org.wickedsource.coderadar.analyzer.loc.LocAnalyzerPlugin',
-          'org.wickedsource.coderadar.analyzer.checkstyle.CheckstyleSourceCodeFileAnalyzerPlugin'
-      ];
-
-      var promises = [];
-      for (var pluginName of enabledAnalyzerPlugins) {
-          promises.push(
-              this.http.post(`${AppConfig.BASE_URL}/projects/8/analyzers`,
-                  {
-                      "analyzerName": pluginName,
-                      "enabled": true
-                  },
-                  {
-                      headers: {'Authorization': accessToken}
-                  }
-              )
-          );
-      }
-    }
-
-    addAnalyzingStrategy(accessToken: string) {
-        console.log('adding analyzing strategy...');
-
-        return this.http.post(`${AppConfig.BASE_URL}/projects/8/analyzingJob`,
-            {
-                "fromDate" : "1538352000000",
-                "active" : true,
-                "rescan" : true
-            },
-            {
-                headers: {'Authorization': accessToken}
-            }
-        );
     }
 }

@@ -10,5 +10,4 @@ export interface INode {
     renamedTo: any;
     changes: any;
     children?: INode[];
-    packerInfo?: IPackerElement;
 }

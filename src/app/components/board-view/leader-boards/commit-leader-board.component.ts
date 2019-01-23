@@ -16,7 +16,6 @@ import {faCaretDown, faCaretUp, faCaretRight, faPlusSquare, faChevronCircleRight
 
 export class CommitLeaderBoardComponent implements OnChanges{
   @Input() commitElements: ICommitElement[];
-  @Input() userElements: IUserElement[];
   @Input() activeFilter: number;
 
   formattedCommitElements: ICommitElement[];
@@ -25,12 +24,12 @@ export class CommitLeaderBoardComponent implements OnChanges{
 
   ngOnChanges() {
     this.formattedCommitElements = [];
-    this.commitElements.sort((a, b) => b.totalPoints - a.totalPoints);
 
     for(var i=0; i<15; i++) {
       if(this.commitElements[i]) {
         if(this.commitElements[i].currentCommit.timestamp > (Date.now()-this.activeFilter)) {
           this.formattedCommitElements.push(this.commitElements[i]);
+          this.formattedCommitElements.sort((a, b) => b.totalPoints - a.totalPoints);
         }
       }
     }

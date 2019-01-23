@@ -22,19 +22,19 @@ export class MetricService {
     }
 
     loadDeltaTree(accessToken: string, currentCommit: ICommit, previousCommit: ICommit, metricNames: string[]): Observable<INode> {
-        //console.log("--------LOADING-DELTATREE---------");
-        //console.log(accessToken);
+         //console.log("--------LOADING-DELTATREE---------");
+         //console.log(accessToken);
 
-        const body = {
-            'commit1': currentCommit.name,
-            'commit2': previousCommit.name,
-            'metrics': metricNames
-        };
+         const body = {
+             'commit1': currentCommit.name,
+             'commit2': previousCommit.name,
+             'metrics': metricNames
+         };
 
-        return this.http.post<INode>(
-          `${AppConfig.BASE_URL}/projects/9/metricvalues/deltaTree`,
-          body,
-          {headers: {'Authorization': accessToken}}
-        );
-    }
-}
+         return this.http.post<INode>(
+           `${AppConfig.BASE_URL}/projects/9/metricvalues/deltaTree`,
+           body,
+           {headers: {'Authorization': accessToken}}
+         );
+     }
+ }

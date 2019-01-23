@@ -32,13 +32,11 @@
   <div class="user-leader-board-container" *ngIf="selectedBoard == 'selectUserLeaderboard' ">
     <user-leader-board
       [userElements]="IUserElements"
-      [commitElements]="ICommitElements"
       [activeFilter]="activeTimeFilterValue">Loading...
     </user-leader-board>
   </div>
   <div class="commit-leader-board-container" *ngIf="selectedBoard == 'selectCommitLeaderboard' ">
     <commit-leader-board
-      [userElements]="IUserElements"
       [commitElements]="ICommitElements"
       [activeFilter]="activeTimeFilterValue">Loading...
     </commit-leader-board>

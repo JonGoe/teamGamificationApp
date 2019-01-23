@@ -15,7 +15,6 @@ import {faCaretDown, faCaretUp, faCaretRight, faPlusSquare, faChevronCircleRight
 })
 
 export class UserLeaderBoardComponent implements OnChanges{
-  @Input() commitElements: ICommitElement[];
   @Input() userElements: IUserElement[];
   @Input() activeFilter: number;
 
@@ -44,6 +43,7 @@ export class UserLeaderBoardComponent implements OnChanges{
         if(this.userElements[i].commitsPerUser[j].currentCommit.timestamp > (Date.now()-this.activeFilter)) {
           totalPointsPerUser = totalPointsPerUser + this.userElements[i].commitsPerUser[j].totalPoints;
           commitsInTimeframe++;
+          averagePointsPerUser = Math.round(totalPointsPerUser / commitsInTimeframe * 100) / 100;
           if(this.userElements[i].commitsPerUser[j].totalPoints > bestCommitPoints) {
             bestCommitName = this.userElements[i].commitsPerUser[j].currentCommit.name;
             bestCommitDate = this.userElements[i].commitsPerUser[j].date;
@@ -62,7 +62,7 @@ export class UserLeaderBoardComponent implements OnChanges{
           bestCommitPoints: bestCommitPoints
         });
       }
-      this.formattedUserElements = this.formattedUserElements.sort((a, b) => b.averageUserPoints - a.averageUserPoints);
+      this.formattedUserElements = this.formattedUserElements.sort((a, b) => b.totalUserPoints - a.totalUserPoints);
     }
   }
 }

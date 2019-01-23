@@ -65,8 +65,8 @@ export class AppConfig {
     ];
 
 
-    // METRIC NAME MAPPING
-    static METRIC_NAME_MAPPING: IMetric[] = [
+    // METRICS
+    static METRICS: IMetric[] = [
         {
             shortName: 'Source Lines of Code (SLOC)',
             metricName: 'coderadar:size:sloc:java',
@@ -292,7 +292,7 @@ export class AppConfig {
     ];
 
     static getMetricByMetricName(metricName: string): IMetric {
-        return this.METRIC_NAME_MAPPING.find(namePair => namePair.metricName === metricName);
+        return this.METRICS.find(namePair => namePair.metricName === metricName);
     }
 
     static getGithubName(commitAuthor: string): string {

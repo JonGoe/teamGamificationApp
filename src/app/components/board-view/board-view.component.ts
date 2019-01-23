@@ -87,7 +87,7 @@ export class BoardViewComponent implements OnInit, OnChanges {
           this.metricService.loadDeltaTree(loginResultAccessToken, previousCommit, currentCommit, this.metricNames).subscribe(node => {
             deltaTree = node;
             //console.log(deltaTree);
-            tableRows = this.prepareTableData(deltaTree);
+            tableRows = this.verarbeiteMetricData(deltaTree);
             for(var j = 0; j < tableRows.length; j++) {
               totalCommitPoints += tableRows[j].points;
             }
@@ -114,7 +114,7 @@ export class BoardViewComponent implements OnInit, OnChanges {
       });
     }
 
-    prepareTableData(foundElement: INode): ITableRow[] {
+    verarbeiteMetricData(foundElement: INode): ITableRow[] {
       let rows: ITableRow[] = [];
       for (const key of Object.keys(this.availableMetrics)) {
           const metricName = this.availableMetrics[key].metricName;
@@ -187,9 +187,7 @@ export class BoardViewComponent implements OnInit, OnChanges {
 
     ngOnChanges() {
       if(this.selectedBoard){
-        console.log("000000000000000000000000000000000000000");
         console.log(this.selectedBoard);
       }
     }
-
 }
